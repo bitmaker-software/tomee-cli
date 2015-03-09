@@ -18,11 +18,19 @@
   (:require [clojure.java.shell :refer (sh)])
   (:gen-class))
 
-(defn startup [path]
-  (sh (str path "/bin/startup.sh")))
+(defn- windows?
+  "Verify if the operation system is windows or not"
+  [] (if (= (.toLowerCase (System/getProperty "os.name")) "windows") true false ))
 
-(defn shutdown [path]
-  (sh (str path "/bin/shutdown.sh")))
+(defn startup
+  "Startup the Apache TomEE Server"
+  [path]
+  (sh (str path "/bin/startup" (if (windows?) ".exe" ".sh"))))
+
+(defn shutdown
+  "Shutdown the Apache TomEE Server"
+  [path]
+  (sh (str path "/bin/shutdown" (if (windows?) ".exe" ".sh"))))
 
 (defn -main
   "I don't do a whole lot ... yet."
