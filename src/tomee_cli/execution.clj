@@ -14,7 +14,7 @@
 ;;limitations under the License.
 (ns ^{:author "Daniel Cunha (soro) <danielsoro@gmail.com>,
                Hildeberto Mendonça <me@hildeberto.com>"}
-  tomee-cli.executions
+  tomee-cli.execution
   (:require [clojure.java.shell :refer (sh)])
   (:gen-class))
 
