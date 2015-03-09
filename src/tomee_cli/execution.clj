@@ -20,7 +20,7 @@
 
 (defn- windows?
   "Verify if the operation system is windows or not"
-  [] (if (= (.toLowerCase (System/getProperty "os.name")) "windows") true false ))
+  [] (= (.toLowerCase (System/getProperty "os.name")) "windows"))
 
 (defn startup
   "Startup the Apache TomEE Server"
