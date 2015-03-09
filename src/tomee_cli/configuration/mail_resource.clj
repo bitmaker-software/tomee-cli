@@ -13,7 +13,16 @@
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
 (ns ^{:author "Daniel Cunha (soro) <danielsoro@gmail.com>"}
-  tomee-cli.mail-resource
-  (:require [clojure.java.shell :refer (sh)])
+  tomee-cli.configuration.mail-resource
   (:gen-class))
 
+(defn create-mail-resource "Create a new mail resource in TomEE"
+  [id host port protocol is-auth user password]
+  (str "<Resource id=\""id "\" type=\"javax.mail.Session\">"
+       "\nmail.smtp.host="host
+       "\nmail.smtp.port="port
+       "\nmail.transport.protocol="protocol
+       "\nmail.smtp.auth="is-auth
+       "\nmail.smtp.user="user
+       "\npassword="password
+       "\n</Resource>"))
