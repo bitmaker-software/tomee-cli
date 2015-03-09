@@ -12,7 +12,9 @@
 ;;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
-(ns tomee-cli.core
+(ns ^{:author "Daniel Cunha (soro) <danielsoro@gmail.com>,
+               Hildeberto Mendonça <me@hildeberto.com>"}
+  tomee-cli.core
   (:require [clojure.java.shell :refer (sh)])
   (:gen-class))
 
