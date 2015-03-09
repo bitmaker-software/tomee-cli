@@ -14,12 +14,20 @@
 ;;limitations under the License.
 (ns ^{:author "Daniel Cunha (soro) <danielsoro@gmail.com>,
                Hildeberto Mendonça <me@hildeberto.com>"}
-  tomee-cli.core
-  (:require [clojure.java.shell :refer (sh)]
-            [tomee-cli.execution :refer :all])
+  tomee-cli.executions
+  (:require [clojure.java.shell :refer (sh)])
   (:gen-class))
 
-;;(defn -main
-;;  "I don't do a whole lot ... yet."
-;;  [& args]
-;;  (println "Hello, World!"))
+(defn- windows?
+  "Verify if the operation system is windows or not"
+  [] (if (= (.toLowerCase (System/getProperty "os.name")) "windows") true false ))
+
+(defn startup
+  "Startup the Apache TomEE Server"
+  [path]
+  (sh (str path "/bin/startup" (if (windows?) ".exe" ".sh"))))
+
+(defn shutdown
+  "Shutdown the Apache TomEE Server"
+  [path]
+  (sh (str path "/bin/shutdown" (if (windows?) ".exe" ".sh"))))
