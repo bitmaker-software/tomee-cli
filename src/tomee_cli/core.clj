@@ -15,7 +15,8 @@
 (ns ^{:author "Daniel Cunha (soro) <danielsoro@gmail.com>,
                Hildeberto Mendonça <me@hildeberto.com>"}
   tomee-cli.core
-  (:require [tomee-cli.execution :refer :all])
+  (:require [tomee-cli.execution :refer :all]
+            [tomee-cli.configuration.mail-resource :refer :all])
   (:gen-class))
 
 ;;(defn -main
