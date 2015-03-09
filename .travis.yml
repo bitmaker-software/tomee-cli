@@ -1,1 +1,6 @@
-lein: lein
+language: clojure
+lein: lein2
+script: lein2 expectations
+jdk:
+  - openjdk7
+  - oraclejdk7
