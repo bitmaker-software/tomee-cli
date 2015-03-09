@@ -20,10 +20,10 @@
 (defn- create-mail [] (create-mail-resource "SuperbizMail" "mail.superbiz.org" "25" "smtp" "true" "someuser" "mypassword"))
 
 (deftest create-mail-resource-test
-  (testing "Should create a mail not null"
+  (testing "Should create a resource mail not null"
     (is (not (nil? (create-mail)))))
 
-  (testing "Should be instace of the String"
+  (testing "Should be instance of the String"
     (is (instance? String (create-mail))))
 
   (testing "Should create a resource mail"
