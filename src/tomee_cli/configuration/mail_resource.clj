@@ -21,14 +21,16 @@
 (defn read-tomee-xml [path]
   (xml/parse (io/as-file path)))
 
+(defn define-mail-resource
+   [id host port protocol auth user password]
+   (let [content
+        (str "\nmail.smtp.host="host"\nmail.smtp.port="port"\nmail.transport.protocol="protocol"\nmail.smtp.auth="auth"\nmail.smtp.user="user"\npassword="password"\n")]
+  {:tag :Resource, :attrs {:id "SuperbizMail", :type "javax.mail.Session"}, :content [content]}))
+
+
 (defn create-mail-resource
   "Create a new mail resource in TomEE"
-  [id host port protocol is-auth user password]
-  (str "<Resource id=\""id "\" type=\"javax.mail.Session\">"
-       "\nmail.smtp.host="host
-       "\nmail.smtp.port="port
-       "\nmail.transport.protocol="protocol
-       "\nmail.smtp.auth="is-auth
-       "\nmail.smtp.user="user
-       "\npassword="password
-       "\n</Resource>"))
+  [id host port protocol auth user password]
+  "TODO")
+
+
