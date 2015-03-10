@@ -22,12 +22,14 @@
   "Verify if the operation system is windows or not"
   [] (= (.toLowerCase (System/getProperty "os.name")) "windows"))
 
+(def- extension (if (windows?) ".exe" ".sh"))
+
 (defn startup
   "Startup the Apache TomEE Server"
   [path]
-  (sh (str path "/bin/startup" (if (windows?) ".exe" ".sh"))))
+  (sh (str path "/bin/startup" extension)))
 
 (defn shutdown
   "Shutdown the Apache TomEE Server"
   [path]
-  (sh (str path "/bin/shutdown" (if (windows?) ".exe" ".sh"))))
+  (sh (str path "/bin/shutdown" extension)))
