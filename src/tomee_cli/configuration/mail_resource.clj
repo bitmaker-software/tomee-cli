@@ -25,7 +25,7 @@
   "Define a mail resorce"
   [id host port protocol auth user password]
   (let [content (str "\nmail.smtp.host="host"\nmail.smtp.port="port"\nmail.transport.protocol="protocol"\nmail.smtp.auth="auth"\nmail.smtp.user="user"\npassword="password"\n")]
-  {:tag :Resource, :attrs {:id "SuperbizMail", :type "javax.mail.Session"}, :content [content]}))
+  {:tag :Resource, :attrs {:id (str id), :type "javax.mail.Session"}, :content [content]}))
 
 (defn- add-resource-in-tomee-xml [resource tomee-xml]
   (assoc tomee-xml :content resource))
