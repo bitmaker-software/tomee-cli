@@ -18,20 +18,13 @@
             [clojure.java.io :refer :all :as io]
             [tomee-cli.configuration.mail-resource :refer :all]))
 
-(def email-resource-expect {:tag :Resource, :attrs {:id "SuperbizMail", :type "javax.mail.Session"}, :content ["\nmail.smtp.host=mail.superbiz.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=someuser\npassword=mypassword\n"]})
 
-(def tomee-xml-resource (io/file
+(def tomee-xml-file (io/file
                           (io/resource "tomee.xml" )))
 
-(def create-mail (define-mail-resource "SuperbizMail" "mail.superbiz.org" "25" "smtp" "true" "someuser" "mypassword"))
+(def expect {:tag :tomee, :attrs nil, :content {:tag :Resource, :attrs {:id "SuperbizMail", :type "javax.mail.Session"}, :content ["\nmail.smtp.host=host\nmail.smtp.port=port\nmail.transport.protocol=protocol\nmail.smtp.auth=auth\nmail.smtp.user=user\npassword=password\n"]}})
+
 
 (deftest create-mail-resource-test
-  (testing "Should create a resource mail"
-    (is (= email-resource-expect create-mail))))
-
-(deftest read-tomee-xml-test
-   (testing "tomee.xml must be not null"
-    (is (not (nil? tomee-xml-resource))))
-
-  (testing "Should read the tomee.xml"
-    (is (not (nil? (read-tomee-xml tomee-xml-resource))))))
+  (testing "Should create mail resource in tomee.xml"
+    (is (= expect (create-mail-resource tomee-xml-file "id" "host" "port" "protocol" "auth" "user" "password")))))

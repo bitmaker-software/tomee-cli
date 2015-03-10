@@ -18,19 +18,23 @@
             [clojure.java.io :refer :all :as io])
   (:gen-class))
 
-(defn read-tomee-xml [path]
-  (xml/parse (io/as-file path)))
+(defn- read-tomee-xml [tomee-xml-file]
+  (xml/parse (io/as-file tomee-xml-file)))
 
-(defn define-mail-resource
-   [id host port protocol auth user password]
-   (let [content
-        (str "\nmail.smtp.host="host"\nmail.smtp.port="port"\nmail.transport.protocol="protocol"\nmail.smtp.auth="auth"\nmail.smtp.user="user"\npassword="password"\n")]
+(defn- define-mail-resource
+  "Define a mail resorce"
+  [id host port protocol auth user password]
+  (let [content (str "\nmail.smtp.host="host"\nmail.smtp.port="port"\nmail.transport.protocol="protocol"\nmail.smtp.auth="auth"\nmail.smtp.user="user"\npassword="password"\n")]
   {:tag :Resource, :attrs {:id "SuperbizMail", :type "javax.mail.Session"}, :content [content]}))
 
+(defn- add-resource-in-tomee-xml [resource tomee-xml]
+  (assoc tomee-xml :content resource))
 
 (defn create-mail-resource
   "Create a new mail resource in TomEE"
-  [id host port protocol auth user password]
-  "TODO")
+  [tomee-xml-file id host port protocol auth user password]
+  (let [resource (define-mail-resource id host port protocol auth user password)
+        tomee-xml (read-tomee-xml tomee-xml-file)]
+  (add-resource-in-tomee-xml resource tomee-xml)))
 
 
