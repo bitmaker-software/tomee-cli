@@ -22,7 +22,7 @@
 (def tomee-xml-file (io/file
                           (io/resource "tomee.xml" )))
 
-(def expect {:tag :tomee, :attrs nil, :content {:tag :Resource, :attrs {:id "SuperbizMail", :type "javax.mail.Session"}, :content ["\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n"]}})
+(def expect {:tag :tomee :attrs nil :content {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.mail.Session"} :content ["\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n"]}})
 
 
 (deftest create-mail-resource-test
