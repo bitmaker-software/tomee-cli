@@ -18,7 +18,7 @@
   (:require [clojure.java.shell :refer (sh)])
   (:gen-class))
 
-(defn- windows?
+(defn windows?
   "Verify if the operation system is windows or not"
   [] (= (.toLowerCase (System/getProperty "os.name")) "windows"))
 
