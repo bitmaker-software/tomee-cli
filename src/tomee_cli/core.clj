@@ -15,8 +15,8 @@
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>,
                Hildeberto Mendonça <me@hildeberto.com>"}
   tomee-cli.core
-  (:require [tomee-cli.execution :refer :all]
-            [tomee-cli.configuration.mail-resource :refer :all])
+  (:require [tomee-cli.execution :refer (startup shutdown)]
+            [tomee-cli.configuration.mail-resource :refer (create-mail-resource)])
   (:gen-class))
 
 ;;(defn -main
