@@ -1,4 +1,4 @@
-;;Copyright 2015 Daniel Cunha (soro) and/or its affiliates and other contributors
+;;Copyright 2015 Bitmaker Software LDA and/or its affiliates and other contributors
 ;;as indicated by the @authors tag. All rights reserved.
 ;;
 ;;Licensed under the Apache License, Version 2.0 (the "License");

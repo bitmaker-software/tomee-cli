@@ -1,4 +1,4 @@
-;;Copyright 2015 Daniel Cunha (soro) and/or its affiliates and other contributors
+;;Copyright 2015 Bitmaker Software LDA and/or its affiliates and other contributors
 ;;as indicated by the @authors tag. All rights reserved.
 ;;
 ;;Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +12,7 @@
 ;;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
-(ns ^{:author "Daniel Cunha (soro) <danielsoro@gmail.com>,
+(ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>,
                Hildeberto Mendonça <me@hildeberto.com>"}
   tomee-cli.core
   (:require [tomee-cli.execution :refer :all]
