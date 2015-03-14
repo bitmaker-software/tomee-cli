@@ -15,8 +15,7 @@
 
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
   tomee-cli.configuration.mail-resource
-  (:require [tomee-cli.resources :refer (add-resource) :as resource])
-  (:gen-class))
+  (:require [tomee-cli.resources :refer (add-resource) :as resource]))
 
 (defn define-mail-resource
   "Define a mail resorce"
