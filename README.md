@@ -24,9 +24,9 @@ The REPL starts with all utility functions available by default in the namespace
 
 ## Features
 
-- Start Apache TomEE   -> (start   "[TOMEE_HOME]")
-- Stop Apache TomEE    -> (stop    "[TOMEE_HOME]")
-- Restart Apache TomEE -> (restart "[TOMEE_HOME]")
+- Start Apache TomEE   -> `(start   "[TOMEE_HOME]")`
+- Stop Apache TomEE    -> `(stop    "[TOMEE_HOME]")`
+- Restart Apache TomEE -> `(restart "[TOMEE_HOME]")`
 
 ## License
 

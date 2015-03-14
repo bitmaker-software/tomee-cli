@@ -19,24 +19,27 @@
   (:require [clojure.java.shell :refer (sh)])
   (:gen-class))
 
+(def tomee-home (System/getenv "TOMEE_HOME"))
+
 (defn windows?
   "Verify if the operation system is windows or not"
-  [] (= (.toLowerCase (System/getProperty "os.name")) "windows"))
+  []
+  (= (.toLowerCase (System/getProperty "os.name")) "windows"))
 
-(def extension (if (windows?) ".exe" ".sh"))
+(def extension  (if (windows?) ".exe" ".sh"))
 
 (defn start
   "Startup the Apache TomEE Server"
-  [path]
-  (sh (str path "/bin/startup" extension)))
+  ([]     (start tomee-home))
+  ([path] (sh (str path "/bin/startup" extension))))
 
 (defn stop
   "Shutdown the Apache TomEE Server"
-  [path]
-  (sh (str path "/bin/shutdown" extension)))
+  ([]     (stop tomee-home))
+  ([path] (sh (str path "/bin/shutdown" extension))))
 
 (defn restart
   "Shutdown and start the Apache TomEE Server"
-  [path]
-  (stop path)
-  (start path))
+  ([]     (restart tomee-home))
+  ([path] (do (stop path)
+              (start path))))
