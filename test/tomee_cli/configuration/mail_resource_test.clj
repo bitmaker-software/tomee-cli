@@ -15,16 +15,25 @@
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
   tomee-cli.configuration.mail-resource-test
   (:require [clojure.test :refer :all]
-            [clojure.java.io :refer :all :as io]
             [tomee-cli.configuration.mail-resource :refer :all]))
 
 
-(def tomee-xml-file (io/file
-                          (io/resource "tomee.xml" )))
+(def expect {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.mail.Session"} :content ["\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n"]})
 
-(def expect {:tag :tomee :attrs nil :content {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.mail.Session"} :content ["\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n"]}})
+(def expect-new-tomee-xml {:tag :tomee :attrs nil :content {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.mail.Session"} :content ["\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n"]}})
 
+(deftest define-mail-resource-test
+  (testing "Should create mail resource"
+    (is (= expect (define-mail-resource "SuperbizMail" "tomee.apache.org" "25" "smtp" "true" "email@apache.org" "123456")))))
 
-(deftest create-mail-resource-test
-  (testing "Should create mail resource in tomee.xml"
-    (is (= expect (create-mail-resource tomee-xml-file "SuperbizMail" "tomee.apache.org" "25" "smtp" "true" "email@apache.org" "123456")))))
+(deftest parse-xml-test
+  (testing "Should parse the xml file")
+  (is (not (nil? (parse-xml "resources")))))
+
+(deftest add-resource-test
+  (testing "Should add new resource")
+  (is (= expect-new-tomee-xml (add-resource "resources" expect))))
+
+;;(deftest add-new-mail-resource-test
+;;  (testing "Should add new mail resource in tomee.xml"
+;;    (is (= expect-new-tomee-xml (add-new-mail-resource "resources" "SuperbizMail" "tomee.apache.org" "25" "smtp" "true" "email@apache.org" "123456")))))

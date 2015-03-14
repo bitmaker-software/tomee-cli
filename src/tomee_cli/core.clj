@@ -16,7 +16,7 @@
                Hildeberto Mendonça <me@hildeberto.com>"}
   tomee-cli.core
   (:require [tomee-cli.execution :refer (startup shutdown)]
-            [tomee-cli.configuration.mail-resource :refer (create-mail-resource)])
+            [tomee-cli.configuration.mail-resource :refer (add-new-mail-resource)])
   (:gen-class))
 
 ;;(defn -main

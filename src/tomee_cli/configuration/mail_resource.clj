@@ -14,12 +14,9 @@
 ;;limitations under the License.
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
   tomee-cli.configuration.mail-resource
-  (:require [clojure.xml :refer :all :as xml]
-            [clojure.java.io :refer :all :as io])
+  (:require [clojure.xml :refer (parse) :as xml]
+            [clojure.java.io :refer (as-file) :as io])
   (:gen-class))
-
-(defn read-tomee-xml [tomee-xml-file]
-  (xml/parse (io/as-file tomee-xml-file)))
 
 (defn define-mail-resource
   "Define a mail resorce"
@@ -27,14 +24,16 @@
   (let [content (str "\nmail.smtp.host="host"\nmail.smtp.port="port"\nmail.transport.protocol="protocol"\nmail.smtp.auth="auth"\nmail.smtp.user="user"\npassword="password"\n")]
   {:tag :Resource :attrs {:id (str id) :type "javax.mail.Session"} :content [content]}))
 
-(defn add-resource-in-tomee-xml [resource tomee-xml]
-  (assoc tomee-xml :content resource))
+(defn parse-xml [path]
+  (xml/parse
+   (io/as-file
+    (str path "/conf/tomee.xml"))))
 
-(defn create-mail-resource
-  "Create a new mail resource in TomEE"
-  [tomee-xml-file id host port protocol auth user password]
-  (let [resource (define-mail-resource id host port protocol auth user password)
-        tomee-xml (read-tomee-xml tomee-xml-file)]
-  (add-resource-in-tomee-xml resource tomee-xml)))
+(defn add-resource [path resource]
+  (assoc (parse-xml path) :content resource))
 
-
+(defn add-new-mail-resource [path id host port protocol auth user password]
+  (let [new-resource (define-mail-resource id host port protocol auth user password)
+        new-tomee-xml (add-resource path new-resource)]
+    ;;(write in file)
+    ))
