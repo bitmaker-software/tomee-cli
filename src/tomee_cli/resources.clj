@@ -16,8 +16,7 @@
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
   tomee-cli.resources
   (:require [clojure.xml :refer (parse) :as xml]
-            [clojure.java.io :refer (as-file) :as io])
-  (:gen-class))
+            [clojure.java.io :refer (as-file) :as io]))
 
 (defn parse-xml
   [path]

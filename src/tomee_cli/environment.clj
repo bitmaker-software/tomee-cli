@@ -15,29 +15,7 @@
 
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>,
                Hildeberto Mendonça <me@hildeberto.com>"}
-  tomee-cli.execution
-  (:require [clojure.java.shell :refer (sh)]
-            [tomee-cli.environment :refer (tomee-home)]))
+  tomee-cli.environment)
 
-(defn windows?
-  "Verify if the operation system is windows or not"
-  []
-  (= (.toLowerCase (System/getProperty "os.name")) "windows"))
-
-(def extension (if (windows?) ".exe" ".sh"))
-
-(defn start
-  "Startup the Apache TomEE Server"
-  ([]     (start tomee-home))
-  ([path] (sh (str path "/bin/startup" extension))))
-
-(defn stop
-  "Shutdown the Apache TomEE Server"
-  ([]     (stop tomee-home))
-  ([path] (sh (str path "/bin/shutdown" extension))))
-
-(defn restart
-  "Shutdown and start the Apache TomEE Server"
-  ([]     (restart tomee-home))
-  ([path] (do (stop path)
-              (start path))))
+(def tomee-home (let [env-var (System/getenv "TOMEE_HOME")]
+                     (if (nil? env-var) "." env-var)))
