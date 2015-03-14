@@ -1,7 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <tomee>
-  <!-- see http://tomee.apache.org/containers-and-resources.html -->
+<Resource id='SuperbizMail' type='javax.mail.Session'>
 
-  <!-- activate next line to be able to deploy applications in apps -->
-  <!-- <Deployments dir="apps" /> -->
+mail.smtp.host=tomee.apache.org
+mail.smtp.port=25
+mail.transport.protocol=smtp
+mail.smtp.auth=true
+mail.smtp.user=email@apache.org
+password=123456
+
+</Resource>
 </tomee>

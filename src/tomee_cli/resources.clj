@@ -12,6 +12,7 @@
 ;;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
+
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
   tomee-cli.resources
   (:require [clojure.xml :refer (parse) :as xml]
@@ -23,4 +24,4 @@
    (io/as-file path)))
 
 (defn add-resource [path resource]
-  (assoc (parse-xml path) :content resource))
+  (assoc (parse-xml path) :content [resource]))
