@@ -29,7 +29,7 @@
   [path id host port protocol auth user password]
   (let [tomee-xml-path (str path "/conf/tomee.xml")
         new-resource (define-mail-resource id host port protocol auth user password)
-        new-tomee-xml (resource/add-resource tomee-xml-path new-resource)]
-    (spit tomee-xml-path
-          (xml-with-out-str new-tomee-xml))
-  (xml-with-out-str new-tomee-xml)))
+        new-tomee-xml (resource/add-resource tomee-xml-path new-resource)
+        str-new-tomee-xml (xml-with-out-str new-tomee-xml)]
+    (spit tomee-xml-path str-new-tomee-xml)
+    str-new-tomee-xml))
