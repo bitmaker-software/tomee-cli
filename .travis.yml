@@ -3,3 +3,5 @@ jdk:
   - openjdk7
   - oraclejdk7
   - oraclejdk8
+notifications:
+    slack: bitmaker:1KC4HkuyKvjvxcPAFi1qaDQj
