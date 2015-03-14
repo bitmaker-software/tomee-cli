@@ -15,8 +15,7 @@
 
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
   tomee-cli.configuration.mail-resource
-  (:require [clojure.xml :refer (emit) :as xml]
-            [tomee-cli.resources :refer (add-resource) :as resource])
+  (:require [tomee-cli.resources :refer (add-resource xml-with-out-str) :as resource])
   (:gen-class))
 
 (defn define-mail-resource
@@ -32,7 +31,5 @@
         new-resource (define-mail-resource id host port protocol auth user password)
         new-tomee-xml (resource/add-resource tomee-xml-path new-resource)]
     (spit tomee-xml-path
-          (with-out-str
-            (xml/emit new-tomee-xml)))
-    (with-out-str
-      (xml/emit new-tomee-xml))))
+          (xml-with-out-str new-tomee-xml))
+  (xml-with-out-str new-tomee-xml)))
