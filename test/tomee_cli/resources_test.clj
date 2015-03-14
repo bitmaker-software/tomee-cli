@@ -12,13 +12,14 @@
 ;;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
+
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
   tomee-cli.resources-test
   (:require [clojure.test :refer :all]
             [tomee-cli.resources :refer :all]))
 
 (def expect {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.mail.Session"} :content ["\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n"]})
-(def expect-new-tomee-xml {:tag :tomee :attrs nil :content {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.mail.Session"} :content ["\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n"]}})
+(def expect-new-tomee-xml {:tag :tomee :attrs nil :content [{:tag :Resource :attrs {:id "SuperbizMail" :type "javax.mail.Session"} :content ["\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n"]}]})
 
 (deftest parse-xml-test
   (testing "Should parse the xml file")
@@ -27,3 +28,4 @@
 (deftest add-resource-test
   (testing "Should add new resource")
   (is (= expect-new-tomee-xml (add-resource "resources/conf/tomee.xml" expect))))
+

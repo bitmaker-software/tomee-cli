@@ -15,7 +15,7 @@
 
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
   tomee-cli.configuration.mail-resource
-  (:require [tomee-cli.resources :refer (add-resource) :as resource]))
+  (:require [tomee-cli.resources :refer (add-resource xml-with-out-str) :as resource]))
 
 (defn define-mail-resource
   "Define a mail resorce"
@@ -23,8 +23,12 @@
   (let [content (str "\nmail.smtp.host="host"\nmail.smtp.port="port"\nmail.transport.protocol="protocol"\nmail.smtp.auth="auth"\nmail.smtp.user="user"\npassword="password"\n")]
   {:tag :Resource :attrs {:id (str id) :type "javax.mail.Session"} :content [content]}))
 
-(defn add-new-mail-resource [path id host port protocol auth user password]
-  (let [new-resource (define-mail-resource id host port protocol auth user password)
-        new-tomee-xml (resource/add-resource (str path "/conf/tomee.xml") new-resource)]
-    ;;(write in file)
-    ))
+(defn add-new-mail-resource
+  "Add a new mail resource in tomee.xml"
+  [path id host port protocol auth user password]
+  (let [tomee-xml-path (str path "/conf/tomee.xml")
+        new-resource (define-mail-resource id host port protocol auth user password)
+        new-tomee-xml (resource/add-resource tomee-xml-path new-resource)
+        str-new-tomee-xml (xml-with-out-str new-tomee-xml)]
+    (spit tomee-xml-path str-new-tomee-xml)
+    str-new-tomee-xml))

@@ -18,9 +18,16 @@
   (:require [clojure.xml :refer (parse) :as xml]
             [clojure.java.io :refer (as-file) :as io]))
 
-(defn parse-xml [path]
+(defn parse-xml
+  [path]
   (xml/parse
    (io/as-file path)))
 
-(defn add-resource [path resource]
-  (assoc (parse-xml path) :content resource))
+(defn add-resource
+  [path resource]
+  (assoc (parse-xml path) :content [resource]))
+
+(defn xml-with-out-str
+  [xml-file]
+  (with-out-str
+            (xml/emit xml-file)))

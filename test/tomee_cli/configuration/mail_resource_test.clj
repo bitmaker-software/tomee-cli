@@ -12,17 +12,19 @@
 ;;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
+
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
   tomee-cli.configuration.mail-resource-test
   (:require [clojure.test :refer :all]
             [tomee-cli.configuration.mail-resource :refer :all]))
 
 (def expect {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.mail.Session"} :content ["\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n"]})
+(def expect-new-tomee-xml "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\n\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n\n</Resource>\n</tomee>\n")
 
 (deftest define-mail-resource-test
   (testing "Should create mail resource"
     (is (= expect (define-mail-resource "SuperbizMail" "tomee.apache.org" "25" "smtp" "true" "email@apache.org" "123456")))))
 
-;;(deftest add-new-mail-resource-test
-;;  (testing "Should add new mail resource in tomee.xml"
-;;    (is (= expect-new-tomee-xml (add-new-mail-resource "resources" "SuperbizMail" "tomee.apache.org" "25" "smtp" "true" "email@apache.org" "123456")))))
+(deftest add-new-mail-resource-test
+  (testing "Should add new mail resource in tomee.xml"
+    (is (= expect-new-tomee-xml (add-new-mail-resource "resources" "SuperbizMail" "tomee.apache.org" "25" "smtp" "true" "email@apache.org" "123456")))))
