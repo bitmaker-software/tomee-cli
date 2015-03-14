@@ -5,28 +5,51 @@
 
 This command line tool helps system administrators and developers to manage a instance of TomEE server.
 
-## Usage
+## Installation
 
-We assume you already have JDK 8, Git and [Leiningen](https://leiningen.org) installed and configured. Follow the steps below to use the tool:
+Follow the steps below to install TomEE-CLI:
 
-Clone the repository locally:
+1. Install and configure [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
+
+2. Install and configure [Git](http://git-scm.com/downloads).
+
+3. Install and configure [Leiningen](https://leiningen.org).
+
+2. Create the environment variable `TOMEE_HOME` pointing to the directory where TomEE is installed. It's optional, but it simplifies a lot the use of TomEE-CLI. Without it, you will have to inform the installation path everytime you call a function.
+
+3. Clone the repository locally:
+
 
     $ git clone https://github.com/bitmaker-software/tomee-cli.git
 
-It will create the directory `tomee-cli` in the current location. Enter in the directory and start the REPL:
+It will create the directory `tomee-cli` in the current location.
 
-    #> cd tomee-cli
-    #> lein repl
+## Execution
 
-The REPL starts with all utility functions available by default in the namespace. You can simply type the functions or use the autocomplete (Tab) to find the one that fits your needs. Example:
+To run TomEE-CLI, enter in the directory and start the REPL:
 
-    tomee-cli.core=> (start "[TOMEE_HOME]")
+    $ cd tomee-cli
+    $ lein repl
 
-## Features
+The REPL starts with all utility functions available by default in the namespace. You can simply type the functions or use the autocomplete (Tab) to find the one that fits your needs.
 
-- Start Apache TomEE   -> `(start   "[TOMEE_HOME]")`
-- Stop Apache TomEE    -> `(stop    "[TOMEE_HOME]")`
-- Restart Apache TomEE -> `(restart "[TOMEE_HOME]")`
+## Usage
+
+Start server:
+
+    (start "[path-to-tomee]") // Without TOMEE_HOME variable defined.
+    (start)                   // With TOMEE_HOME variable defined.
+
+
+Stop server:
+
+    (stop "[path-to-tomee]")
+    (stop)
+
+Restart server:
+
+    (restart "[path-to-tomee]")
+    (restart)
 
 ## License
 
