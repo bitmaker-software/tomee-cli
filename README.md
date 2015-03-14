@@ -24,6 +24,11 @@ Follow the steps below to install TomEE-CLI:
 
 It will create the directory `tomee-cli` in the current location.
 
+## Test Execution
+To run test in TomEE-CLI, To run TomEE-CLI, enter in the directory and run:
+
+    $ TOMEE_HOME=resources lein test
+
 ## Execution
 
 To run TomEE-CLI, enter in the directory and start the REPL:

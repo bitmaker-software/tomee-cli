@@ -13,8 +13,12 @@
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
 (defproject tomee-cli "0.1.0-SNAPSHOT"
-  :description "CLI to configure Apache TomEE"
-  :url "http://example.com/FIXME"
+  :description "The fast way to configure Apache TomEE"
+  :url "https://github.com/bitmaker-software/tomee-cli"
+  :scm {:name "git"
+        :dir  "."
+        :url  "https://github.com/bitmaker-software/tomee-cli"
+        :tag  "HEAD"}
   :license {:name "Apache License"
             :version "2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0"}

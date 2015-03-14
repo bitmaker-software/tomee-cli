@@ -21,10 +21,26 @@
 (def expect {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.mail.Session"} :content ["\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n"]})
 (def expect-new-tomee-xml "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\n\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n\n</Resource>\n</tomee>\n")
 
+(defn before [])
+
+(defn after []
+  (spit "resources/conf/tomee.xml" "<?xml version='1.0' encoding='UTF-8'?>\n<tomee/>"))
+
+(defn each-fixture [f]
+  (before)
+  (f)
+  (after))
+
+(use-fixtures :each each-fixture)
+
 (deftest define-mail-resource-test
   (testing "Should create mail resource"
     (is (= expect (define-mail-resource "SuperbizMail" "tomee.apache.org" "25" "smtp" "true" "email@apache.org" "123456")))))
 
 (deftest add-new-mail-resource-test
-  (testing "Should add new mail resource in tomee.xml"
-    (is (= expect-new-tomee-xml (add-new-mail-resource "resources" "SuperbizMail" "tomee.apache.org" "25" "smtp" "true" "email@apache.org" "123456")))))
+  (testing "Should add new mail resource in tomee.xml without TOMEE_HOME env"
+    (is (= expect-new-tomee-xml (add-new-mail-resource "resources" "SuperbizMail" "tomee.apache.org" "25" "smtp" "true" "email@apache.org" "123456"))))
+
+  (testing "Should add new mail resource in tomee.xml with TOMEE_HOME env"
+    (System/setProperty "TOMEE_HOME" "resources")
+    (is (= expect-new-tomee-xml (add-new-mail-resource "SuperbizMail" "tomee.apache.org" "25" "smtp" "true" "email@apache.org" "123456")))))
