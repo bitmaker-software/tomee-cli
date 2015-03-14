@@ -22,8 +22,8 @@
 
 (deftest parse-xml-test
   (testing "Should parse the xml file")
-  (is (not (nil? (parse-xml "resources")))))
+  (is (not (nil? (parse-xml "resources/conf/tomee.xml")))))
 
 (deftest add-resource-test
   (testing "Should add new resource")
-  (is (= expect-new-tomee-xml (add-resource "resources" expect))))
+  (is (= expect-new-tomee-xml (add-resource "resources/conf/tomee.xml" expect))))

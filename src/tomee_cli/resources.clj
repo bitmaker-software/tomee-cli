@@ -20,8 +20,7 @@
 
 (defn parse-xml [path]
   (xml/parse
-   (io/as-file
-    (str path "/conf/tomee.xml"))))
+   (io/as-file path)))
 
 (defn add-resource [path resource]
   (assoc (parse-xml path) :content resource))

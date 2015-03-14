@@ -25,6 +25,6 @@
 
 (defn add-new-mail-resource [path id host port protocol auth user password]
   (let [new-resource (define-mail-resource id host port protocol auth user password)
-        new-tomee-xml (resource/add-resource path new-resource)]
+        new-tomee-xml (resource/add-resource (str path "/conf/tomee.xml") new-resource)]
     ;;(write in file)
     ))
