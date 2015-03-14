@@ -18,4 +18,4 @@
   tomee-cli.environment)
 
 (def tomee-home (let [env-var (System/getenv "TOMEE_HOME")]
-                     (if (nil? env-var) "" env-var)))
+                     (if (nil? env-var) "." env-var)))
