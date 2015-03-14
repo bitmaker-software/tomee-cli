@@ -12,6 +12,7 @@
 ;;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
+
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>,
                Hildeberto Mendonça <me@hildeberto.com>"}
   tomee-cli.execution
@@ -24,12 +25,18 @@
 
 (def extension (if (windows?) ".exe" ".sh"))
 
-(defn startup
+(defn start
   "Startup the Apache TomEE Server"
   [path]
   (sh (str path "/bin/startup" extension)))
 
-(defn shutdown
+(defn stop
   "Shutdown the Apache TomEE Server"
   [path]
   (sh (str path "/bin/shutdown" extension)))
+
+(defn restart
+  "Shutdown and start the Apache TomEE Server"
+  [path]
+  (stop path)
+  (start path))
