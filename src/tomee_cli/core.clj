@@ -12,14 +12,10 @@
 ;;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
+
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>,
                Hildeberto Mendonça <me@hildeberto.com>"}
   tomee-cli.core
-  (:require [tomee-cli.execution :refer (startup shutdown)]
+  (:require [tomee-cli.execution :refer (start stop restart)]
             [tomee-cli.configuration.mail-resource :refer (create-mail-resource)])
   (:gen-class))
-
-;;(defn -main
-;;  "I don't do a whole lot ... yet."
-;;  [& args]
-;;  (println "Hello, World!"))
