@@ -17,7 +17,7 @@
                Hildeberto Mendonça <me@hildeberto.com>"}
   tomee-cli.execution
   (:require [clojure.java.shell :refer (sh)]
-            [tomee-cli.environment :refer :all]))
+            [tomee-cli.environment :refer (tomee-home)]))
 
 (defn windows?
   "Verify if the operation system is windows or not"
