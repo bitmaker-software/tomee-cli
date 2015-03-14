@@ -3,8 +3,6 @@
 [![Build Status](https://travis-ci.org/bitmaker-software/tomee-cli.svg)](https://travis-ci.org/bitmaker-software/tomee-cli)
 [![Release](http://img.shields.io/github/release/bitmaker-software/tomee-cli.svg)](https://github.com/bitmaker-software/tomee-cli/releases/latest)
 
-## The TomEE-cli
-
 This command line tool helps system administrators and developers to manage a instance of TomEE server.
 
 ## Usage
