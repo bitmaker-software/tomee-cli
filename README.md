@@ -26,6 +26,7 @@ Follow the steps below to install TomEE-CLI:
 It will create the directory `tomee-cli` in the current location.
 
 ## Test Execution
+
 To run test in TomEE-CLI, enter in the directory and run:
 
     $ TOMEE_HOME=resources lein test
@@ -43,19 +44,23 @@ The REPL starts with all utility functions available by default in the namespace
 
 Start server:
 
-    (start "[path-to-tomee]") // Without TOMEE_HOME variable defined.
-    (start)                   // With TOMEE_HOME variable defined.
-
+    tomee-cli.core=> (start "[path-to-tomee]")    // Without TOMEE_HOME variable defined.
+    tomee-cli.core=> (start)                      // With TOMEE_HOME variable defined.
 
 Stop server:
 
-    (stop "[path-to-tomee]")
-    (stop)
+    tomee-cli.core=> (stop "[path-to-tomee]")     // Without TOMEE_HOME variable defined.
+    tomee-cli.core=> (stop)                       // With TOMEE_HOME variable defined.
 
 Restart server:
 
-    (restart "[path-to-tomee]")
-    (restart)
+    tomee-cli.core=> (restart "[path-to-tomee]")  // Without TOMEE_HOME variable defined.
+    tomee-cli.core=> (restart)                    // With TOMEE_HOME variable defined.
+
+Print versions of the environment:
+
+    tomee-cli.core=> (version "[path-to-tomee]")  // Without TOMEE_HOME variable defined.
+    tomee-cli.core=> (version)                    // With TOMEE_HOME variable defined.
 
 ## License
 
