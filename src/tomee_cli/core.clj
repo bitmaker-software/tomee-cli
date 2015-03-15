@@ -14,8 +14,9 @@
 ;;limitations under the License.
 
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>,
-               Hildeberto Mendonça <me@hildeberto.com>"}
+               Hildeberto Mendonça <hildeberto.com>"}
   tomee-cli.core
-  (:require [tomee-cli.execution :refer (start stop restart)]
-            [tomee-cli.configuration.mail-resource :refer (add-new-mail-resource)])
+  (:require [tomee-cli.configuration.mail-resource :refer (add-new-mail-resource)]
+            [tomee-cli.environment                 :refer (version)]
+            [tomee-cli.execution                   :refer (start stop restart)])
   (:gen-class))

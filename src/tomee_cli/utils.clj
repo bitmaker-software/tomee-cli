@@ -13,24 +13,15 @@
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
 
-(ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>,
-               Hildeberto Mendonça <hildeberto.com>"}
-  tomee-cli.execution
-  (:require [clojure.java.shell    :refer (sh)]
-            [tomee-cli.environment :refer (tomee-home windows? extension)]))
+(ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
+  tomee-cli.utils
+  (:require [clojure.string :refer (split)]))
 
-(defn start
-  "Startup the Apache TomEE Server"
-  ([]     (start tomee-home))
-  ([path] (sh (str path "/bin/startup" extension))))
-
-(defn stop
-  "Shutdown the Apache TomEE Server"
-  ([]     (stop tomee-home))
-  ([path] (sh (str path "/bin/shutdown" extension))))
-
-(defn restart
-  "Shutdown and start the Apache TomEE Server"
-  ([]     (restart tomee-home))
-  ([path] (do (stop path)
-              (start path))))
+(defn pretty-output [text]
+  "Formats a text to be beautifully printed by the repl."
+  (loop [out (split text #"\n")]
+    (if (empty? out)
+      "--------------"
+      (let [to-print (first out)]
+        (println to-print)
+        (recur (rest out))))))

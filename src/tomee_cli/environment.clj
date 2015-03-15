@@ -14,8 +14,24 @@
 ;;limitations under the License.
 
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>,
-               Hildeberto Mendonça <me@hildeberto.com>"}
-  tomee-cli.environment)
+               Hildeberto Mendonça <hildeberto.com>"}
+  tomee-cli.environment
+  (:require [clojure.java.shell :refer (sh)]
+            [clojure.string     :refer (split)]
+            [tomee-cli.utils    :refer (pretty-output)]))
 
 (def tomee-home (let [env-var (System/getenv "TOMEE_HOME")]
-                     (if (nil? env-var) "." env-var)))
+                  (if (nil? env-var) "." env-var)))
+
+(defn windows?
+  "Verify if the operating system is windows or not"
+  []
+  (= (.toLowerCase (System/getProperty "os.name")) "windows"))
+
+(def extension (if (windows?) ".exe" ".sh"))
+
+(defn version
+  "Prints version numbers of the environment elements"
+  ([]     (version tomee-home))
+  ([path] (pretty-output (get (sh (str path "/bin/version" extension)) :out))))
+
