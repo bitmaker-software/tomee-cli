@@ -1,5 +1,7 @@
 # Apache TomEE-CLI
 
+[![Join the chat at https://gitter.im/bitmaker-software/tomee-cli](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bitmaker-software/tomee-cli?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Dependencies Status](http://jarkeeper.com/bitmaker-software/tomee-cli/status.png)](http://jarkeeper.com/bitmaker-software/tomee-cli)
 [![Build Status](https://travis-ci.org/bitmaker-software/tomee-cli.svg)](https://travis-ci.org/bitmaker-software/tomee-cli)
 [![Release](http://img.shields.io/github/release/bitmaker-software/tomee-cli.svg)](https://github.com/bitmaker-software/tomee-cli/releases/latest)
