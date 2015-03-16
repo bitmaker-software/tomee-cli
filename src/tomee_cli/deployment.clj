@@ -14,24 +14,19 @@
 ;;limitations under the License.
 
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
-  tomee-cli.utils
-  (:require [clojure.string :refer (split)]))
+  tomee-cli.deployment
+  (:require [clojure.java.io       :refer (copy file delete-file)]
+            [clojure.java.shell    :refer (sh)]
+            [tomee-cli.environment :refer (tomee-home)]
+            [tomee-cli.utils       :refer (filename-from-path)]))
 
-(defn pretty-output [text]
-  "Formats a text to be beautifully printed by the repl."
-  (loop [out (split text #"\n")]
-    (if (empty? out)
-      "--------------"
-      (let [to-print (first out)]
-        (println to-print)
-        (recur (rest out))))))
+(defn copy-file [source-path dest-path]
+  (copy (file source-path) (file dest-path)))
 
-(defn filename-from-path [path]
-  "Identifies and returns a file name present in a path."
-  (let [point-pos (.lastIndexOf path ".")
-        bar-pos   (.lastIndexOf path "/")]
-    (if (< point-pos 0)
-      nil
-      (if (> (- (.length path) point-pos) 4)
-        nil
-        (.substring path (inc bar-pos))))))
+(defn deploy-war
+  ([war-file-path]      (deploy-war tomee-home war-file-path))
+  ([path war-file-path] (copy-file war-file-path
+                                   (str path "/webapps/" (filename-from-path war-file-path)))))
+(defn undeploy-war
+  ([war-filename]      (undeploy-war tomee-home war-filename))
+  ([path war-filename] (delete-file (str path "/webapps/" war-filename))))

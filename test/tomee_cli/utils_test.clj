@@ -14,24 +14,17 @@
 ;;limitations under the License.
 
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
-  tomee-cli.utils
-  (:require [clojure.string :refer (split)]))
+  tomee-cli.utils-test
+  (:require [clojure.test    :refer :all]
+            [tomee-cli.utils :refer :all]))
 
-(defn pretty-output [text]
-  "Formats a text to be beautifully printed by the repl."
-  (loop [out (split text #"\n")]
-    (if (empty? out)
-      "--------------"
-      (let [to-print (first out)]
-        (println to-print)
-        (recur (rest out))))))
+(deftest filename-from-path-test
+  (testing "Testing file name not found"
+    (is (nil? (filename-from-path "")))
+    (is (nil? (filename-from-path "tomee")))
+    (is (nil? (filename-from-path "resources/conf/tomee"))))
+  (testing "Testing file name found"
+    (is (= "tomee.xml" (filename-from-path "tomee.xml")))
+    (is (= "tomee.xml" (filename-from-path "resources/conf/tomee.xml")))))
 
-(defn filename-from-path [path]
-  "Identifies and returns a file name present in a path."
-  (let [point-pos (.lastIndexOf path ".")
-        bar-pos   (.lastIndexOf path "/")]
-    (if (< point-pos 0)
-      nil
-      (if (> (- (.length path) point-pos) 4)
-        nil
-        (.substring path (inc bar-pos))))))
+(run-all-tests)
