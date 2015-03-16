@@ -26,5 +26,3 @@
   (testing "Testing file name found"
     (is (= "tomee.xml" (filename-from-path "tomee.xml")))
     (is (= "tomee.xml" (filename-from-path "resources/conf/tomee.xml")))))
-
-(run-all-tests)

@@ -17,6 +17,7 @@
                Hildeberto Mendonça <hildeberto.com>"}
   tomee-cli.core
   (:require [tomee-cli.configuration.mail-resource :refer (add-new-mail-resource)]
+            [tomee-cli.deployment                  :refer (deploy-war undeploy-war)]
             [tomee-cli.environment                 :refer (version)]
             [tomee-cli.execution                   :refer (start stop restart)])
   (:gen-class))

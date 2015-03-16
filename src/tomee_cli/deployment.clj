@@ -16,7 +16,6 @@
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
   tomee-cli.deployment
   (:require [clojure.java.io       :refer (copy file delete-file)]
-            [clojure.java.shell    :refer (sh)]
             [tomee-cli.environment :refer (tomee-home)]
             [tomee-cli.utils       :refer (filename-from-path)]))
 
