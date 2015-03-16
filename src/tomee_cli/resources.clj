@@ -14,7 +14,7 @@
 ;;limitations under the License.
 
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
-  tomee-cli.resources
+ tomee-cli.resources
   (:require [clojure.xml     :refer (parse)   :as xml]
             [clojure.java.io :refer (as-file) :as io]))
 
@@ -30,4 +30,4 @@
 (defn xml-with-out-str
   [xml-file]
   (with-out-str
-            (xml/emit xml-file)))
+    (xml/emit xml-file)))

@@ -25,11 +25,20 @@ Follow the steps below to install TomEE-CLI:
 
 It will create the directory `tomee-cli` in the current location.
 
-## Test Execution
+## Checkstyle
+To check code style in TomEE-CLI, enter in the directory and run:
+
+    $ lein cljfmt test
+
+To fix code style run:
+
+    $ lein cljfmt fix
+
+## Test
 
 To run test in TomEE-CLI, enter in the directory and run:
 
-    $ TOMEE_HOME=resources lein test
+    $ lein test
 
 ## Execution
 
