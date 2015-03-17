@@ -73,15 +73,15 @@ Print versions of the environment:
     tomee-cli.core=> (version "[path-to-tomee]")  // Without TOMEE_HOME variable defined.
     tomee-cli.core=> (version)                    // With TOMEE_HOME variable defined.
 
-Deploy web application:
+Deploy application:
 
-    tomee-cli.core=> (deploy "[path-to-tomee]" "[path-to-war-file]")
-    tomee-cli.core=> (deploy "[path-to-war-file]")
+    tomee-cli.core=> (deploy "[path-to-tomee]" "[path-to-war/ear-file]")
+    tomee-cli.core=> (deploy "[path-to-war/ear-file]")
 
-Undeploy web application:
+Undeploy application:
 
-    tomee-cli.core=> (undeploy "[path-to-tomee]" "[war-file]")
-    tomee-cli.core=> (undeploy "[war-file]")
+    tomee-cli.core=> (undeploy "[path-to-tomee]" "[war/ear-file]")
+    tomee-cli.core=> (undeploy "[war/ear-file]")
 
 ## License
 
