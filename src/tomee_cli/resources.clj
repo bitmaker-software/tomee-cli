@@ -26,10 +26,10 @@
 (defn add-resource
   [path resource]
   (let [xml-file (parse-xml path)
-        content (first (xml-file :content))]
+        content  (xml-file :content)]
     (cond
       (nil? content) (assoc xml-file :content [resource])
-    :else (assoc xml-file :content (into [] (concat content [resource]))))))
+      :else (assoc xml-file :content (concat content [resource])))))
 
 (defn xml-with-out-str
   [xml-file]
