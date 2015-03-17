@@ -17,15 +17,27 @@
   tomee-cli.deployment
   (:require [clojure.java.io       :refer (copy file delete-file)]
             [tomee-cli.environment :refer (tomee-home)]
-            [tomee-cli.utils       :refer (filename-from-path)]))
+            [tomee-cli.utils       :refer (filename-extension filename-from-path)]))
 
 (defn copy-file [source-path dest-path]
   (copy (file source-path) (file dest-path)))
 
-(defn deploy-war
-  ([war-file-path]      (deploy-war tomee-home war-file-path))
-  ([path war-file-path] (copy-file war-file-path
-                                   (str path "/webapps/" (filename-from-path war-file-path)))))
-(defn undeploy-war
-  ([war-filename]      (undeploy-war tomee-home war-filename))
-  ([path war-filename] (delete-file (str path "/webapps/" war-filename))))
+(defn deploy
+  ([app-file-path] (deploy tomee-home app-file-path))
+  ([tomee-path app-file-path]
+     (let [extension (filename-extension (filename-from-path app-file-path))]
+       (cond
+         (= extension "war") (copy-file app-file-path
+                                        (str tomee-path "/webapps/" (filename-from-path app-file-path)))
+         (= extension "ear") (copy-file app-file-path
+                                        (str tomee-path "/apps/" (filename-from-path app-file-path)))
+         :else (str "Error deploying application. File " (filename-from-path app-file-path) " invalid.")))))
+
+(defn undeploy
+  ([app-filename] (undeploy tomee-home app-filename))
+  ([tomee-path app-filename]
+     (let [extension (filename-extension app-filename)]
+       (cond
+         (= extension "war") (delete-file (str tomee-path "/webapps/" app-filename))
+         (= extension "ear") (delete-file (str tomee-path "/apps/" app-filename))
+         :else (str "Error undeploying application. File " (filename-from-path app-filename) " doesn't exist.")))))

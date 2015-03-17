@@ -18,6 +18,16 @@
   (:require [clojure.test    :refer :all]
             [tomee-cli.utils :refer :all]))
 
+(deftest filename-extension-test
+  (testing "Testing file extension not found"
+    (is (nil? (filename-extension "")))
+    (is (nil? (filename-extension "tomee"))))
+  (testing "Testing file extension found"
+    (is (= "xml" (filename-extension "tomee.xml")))
+    (is (= "zip" (filename-extension "tomee-1.7.1.zip"))))
+  (testing "Testing lower case"
+    (is (= "xml" (filename-extension "tomee.XML")))))
+
 (deftest filename-from-path-test
   (testing "Testing file name not found"
     (is (nil? (filename-from-path "")))
