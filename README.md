@@ -73,6 +73,16 @@ Print versions of the environment:
     tomee-cli.core=> (version "[path-to-tomee]")  // Without TOMEE_HOME variable defined.
     tomee-cli.core=> (version)                    // With TOMEE_HOME variable defined.
 
+Deploy application:
+
+    tomee-cli.core=> (deploy "[path-to-tomee]" "[path-to-war/ear-file]")
+    tomee-cli.core=> (deploy "[path-to-war/ear-file]")
+
+Undeploy application:
+
+    tomee-cli.core=> (undeploy "[path-to-tomee]" "[war/ear-file]")
+    tomee-cli.core=> (undeploy "[war/ear-file]")
+
 ## License
 
 Copyright 2015 Bitmaker Software LDA and/or its affiliates and other contributors as indicated by the @authors tag. All rights reserved.

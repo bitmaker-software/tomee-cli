@@ -25,3 +25,17 @@
       (let [to-print (first out)]
         (println to-print)
         (recur (rest out))))))
+
+(defn filename-extension [filename]
+  (let [point-pos (.lastIndexOf filename ".")]
+    (if (< point-pos 0)
+      nil
+      (.toLowerCase (.substring filename (inc point-pos))))))
+
+(defn filename-from-path [path]
+  "Identifies and returns a file name present in a path."
+  (let [point-pos (.lastIndexOf path ".")
+        bar-pos   (.lastIndexOf path "/")]
+    (if (< point-pos 0)
+      nil
+      (.substring path (inc bar-pos)))))

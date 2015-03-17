@@ -22,15 +22,15 @@
 (defn start
   "Startup the Apache TomEE Server"
   ([]     (start tomee-home))
-  ([path] (sh (str path "/bin/startup" extension))))
+  ([tomee-path] (sh (str tomee-path "/bin/startup" extension))))
 
 (defn stop
   "Shutdown the Apache TomEE Server"
   ([]     (stop tomee-home))
-  ([path] (sh (str path "/bin/shutdown" extension))))
+  ([tomee-path] (sh (str tomee-path "/bin/shutdown" extension))))
 
 (defn restart
   "Shutdown and start the Apache TomEE Server"
   ([]     (restart tomee-home))
-  ([path] (do (stop path)
-              (start path))))
+  ([tomee-path] (do (stop  tomee-path)
+                    (start tomee-path))))
