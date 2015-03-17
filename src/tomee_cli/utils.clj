@@ -14,7 +14,7 @@
 ;;limitations under the License.
 
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
-  tomee-cli.utils
+ tomee-cli.utils
   (:require [clojure.string :refer (split)]))
 
 (defn pretty-output [text]

@@ -12,7 +12,8 @@
 ;;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
-(defproject tomee-cli "0.1.0-SNAPSHOT"
+
+(defproject com.bitmaker-software/tomee-cli "0.1.0-SNAPSHOT"
   :description "The fast way to configure Apache TomEE"
   :url "https://github.com/bitmaker-software/tomee-cli"
   :scm {:name "git"
@@ -22,7 +23,11 @@
   :license {:name "Apache License"
             :version "2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0"}
-  :dependencies [[org.clojure/clojure "1.6.0"]]
+  :dependencies [[org.clojure/clojure "1.6.0"]
+                 [environ "1.0.0"]]
+  :plugins [[lein-cljfmt "0.1.10"]
+            [lein-environ "1.0.0"]]
   :main ^:skip-aot tomee-cli.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}
+             :test {:env {:tomee-home "resources"}}})

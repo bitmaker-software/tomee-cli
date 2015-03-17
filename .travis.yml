@@ -3,7 +3,9 @@ jdk:
   - openjdk7
   - oraclejdk7
   - oraclejdk8
-env:
-     - TOMEE_HOME=resources
+script: lein do test, cljfmt check
 notifications:
     slack: bitmaker:1KC4HkuyKvjvxcPAFi1qaDQj
+    webhooks:
+      urls:
+        - https://webhooks.gitter.im/e/6b4a3c7e90dff83f72b2

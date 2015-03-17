@@ -15,13 +15,16 @@
 
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>,
                Hildeberto Mendonça <hildeberto.com>"}
-  tomee-cli.environment
+ tomee-cli.environment
   (:require [clojure.java.shell :refer (sh)]
             [clojure.string     :refer (split)]
-            [tomee-cli.utils    :refer (pretty-output)]))
+            [tomee-cli.utils    :refer (pretty-output)]
+            [environ.core       :refer (env)]))
 
-(def tomee-home (let [env-var (System/getenv "TOMEE_HOME")]
+(def tomee-home (let [env-var (env :tomee-home)]
                   (if (nil? env-var) "." env-var)))
+
+(def tomee-xml-path (str tomee-home "/conf/tomee.xml"))
 
 (defn windows?
   "Verify if the operating system is windows or not"
@@ -34,4 +37,3 @@
   "Prints version numbers of the environment elements"
   ([]     (version tomee-home))
   ([path] (pretty-output (get (sh (str path "/bin/version" extension)) :out))))
-
