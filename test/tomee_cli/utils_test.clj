@@ -14,7 +14,7 @@
 ;;limitations under the License.
 
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
-  tomee-cli.utils-test
+ tomee-cli.utils-test
   (:require [clojure.test    :refer :all]
             [tomee-cli.utils :refer :all]))
 

@@ -14,7 +14,7 @@
 ;;limitations under the License.
 
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
-  tomee-cli.deployment
+ tomee-cli.deployment
   (:require [clojure.java.io       :refer (copy file delete-file)]
             [tomee-cli.environment :refer (tomee-home)]
             [tomee-cli.utils       :refer (filename-extension filename-from-path)]))
@@ -25,19 +25,19 @@
 (defn deploy
   ([app-file-path] (deploy tomee-home app-file-path))
   ([tomee-path app-file-path]
-     (let [extension (filename-extension (filename-from-path app-file-path))]
-       (cond
-         (= extension "war") (copy-file app-file-path
-                                        (str tomee-path "/webapps/" (filename-from-path app-file-path)))
-         (= extension "ear") (copy-file app-file-path
-                                        (str tomee-path "/apps/" (filename-from-path app-file-path)))
-         :else (str "Error deploying application. File " (filename-from-path app-file-path) " invalid.")))))
+   (let [extension (filename-extension (filename-from-path app-file-path))]
+     (cond
+       (= extension "war") (copy-file app-file-path
+                                      (str tomee-path "/webapps/" (filename-from-path app-file-path)))
+       (= extension "ear") (copy-file app-file-path
+                                      (str tomee-path "/apps/" (filename-from-path app-file-path)))
+       :else (str "Error deploying application. File " (filename-from-path app-file-path) " invalid.")))))
 
 (defn undeploy
   ([app-filename] (undeploy tomee-home app-filename))
   ([tomee-path app-filename]
-     (let [extension (filename-extension app-filename)]
-       (cond
-         (= extension "war") (delete-file (str tomee-path "/webapps/" app-filename))
-         (= extension "ear") (delete-file (str tomee-path "/apps/" app-filename))
-         :else (str "Error undeploying application. File " (filename-from-path app-filename) " doesn't exist.")))))
+   (let [extension (filename-extension app-filename)]
+     (cond
+       (= extension "war") (delete-file (str tomee-path "/webapps/" app-filename))
+       (= extension "ear") (delete-file (str tomee-path "/apps/" app-filename))
+       :else (str "Error undeploying application. File " (filename-from-path app-filename) " doesn't exist.")))))
