@@ -15,7 +15,7 @@
 
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
  tomee-cli.deployment
-  (:require [clojure.java.io       :refer (copy file delete-file)]
+  (:require [clojure.java.io       :refer (as-file copy file delete-file)]
             [tomee-cli.environment :refer (tomee-home)]
             [tomee-cli.utils       :refer (filename-extension filename-from-path)]))
 
@@ -23,17 +23,29 @@
   (copy (file source-path) (file dest-path)))
 
 (defn deploy
+  "Deploys a war/ear file on the server."
   ([app-file-path] (deploy tomee-home app-file-path))
   ([tomee-path app-file-path]
-   (let [extension (filename-extension (filename-from-path app-file-path))]
+   (let [filename    (filename-from-path app-file-path)
+         extension   (filename-extension (filename-from-path app-file-path))]
      (cond
-       (= extension "war") (copy-file app-file-path
-                                      (str tomee-path "/webapps/" (filename-from-path app-file-path)))
-       (= extension "ear") (copy-file app-file-path
-                                      (str tomee-path "/apps/" (filename-from-path app-file-path)))
-       :else (str "Error deploying application. File " (filename-from-path app-file-path) " invalid.")))))
+       (= extension "war") (let [deploy-path (str tomee-path "/webapps/")]
+                             (copy-file app-file-path
+                                        (str deploy-path filename))
+                             (str "Deployed " filename " at " deploy-path))
+
+       (= extension "ear") (let [deploy-path (str tomee-path "/apps/")
+                                 filename    (filename-from-path app-file-path)]
+                             (when (not (.exists (as-file deploy-path)))
+                               (.mkdir (as-file deploy-path)))
+                             (copy-file app-file-path
+                                        (str deploy-path filename))
+                             (str "Deployed " filename " at " deploy-path))
+
+       :else (str "Error deploying application. File " filename " invalid.")))))
 
 (defn undeploy
+  "Undeploys a war/ear file from the server."
   ([app-filename] (undeploy tomee-home app-filename))
   ([tomee-path app-filename]
    (let [extension (filename-extension app-filename)]
