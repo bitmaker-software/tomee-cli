@@ -27,7 +27,7 @@
                  [environ "1.0.0"]]
   :plugins [[lein-cljfmt "0.1.10"]
             [lein-environ "1.0.0"]]
-  ;;:main ^:skip-aot tomee-cli.core
+  :main ^:skip-aot tomee-cli.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
              :test {:env {:tomee-home "resources"}}})
