@@ -44,7 +44,6 @@
 
 (deftest add-new-mail-resource-with-env-test
   (testing "Should add new mail resource in tomee.xml with TOMEE_HOME env"
-    (System/setProperty "TOMEE_HOME" "resources")
     (is (= expect-new-tomee-xml (add-new-mail-resource "SuperbizMail" "tomee.apache.org" "25" "smtp" "true" "email@apache.org" "123456")))))
 
 (deftest add-new-mail-resource-in-tomee-with-resource-test
