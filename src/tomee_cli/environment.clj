@@ -27,7 +27,7 @@
 (def tomee-xml-path (str tomee-home "/conf/tomee.xml"))
 
 (defn windows?
-  "Verify if the operating system is windows or not"
+  "Verify if the operating system is windows"
   []
   (= (.toLowerCase (System/getProperty "os.name")) "windows"))
 
@@ -37,3 +37,5 @@
   "Prints version numbers of the environment elements"
   ([]     (version tomee-home))
   ([path] (pretty-output (get (sh (str path "/bin/version" extension)) :out))))
+
+(defn install-tomee [version location])

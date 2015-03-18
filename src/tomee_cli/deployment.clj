@@ -23,7 +23,8 @@
   (copy (file source-path) (file dest-path)))
 
 (defn deploy
-  "Deploys a war/ear file on the server."
+  "Deploys a war/ear file on the server, by copying it to the folder /webapps
+   if the file has the extension .war or to the folder /apps if the file has the extention .ear."
   ([app-file-path] (deploy tomee-home app-file-path))
   ([tomee-path app-file-path]
    (let [filename    (filename-from-path app-file-path)
@@ -45,7 +46,8 @@
        :else (str "Error deploying application. File " filename " invalid.")))))
 
 (defn undeploy
-  "Undeploys a war/ear file from the server."
+  "Undeploys a war/ear file from the server by deleting the war file from the folder /webapps
+   or the ear file from the folder /apps."
   ([app-filename] (undeploy tomee-home app-filename))
   ([tomee-path app-filename]
    (let [extension (filename-extension app-filename)]
