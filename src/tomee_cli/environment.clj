@@ -37,5 +37,3 @@
   "Prints version numbers of the environment elements"
   ([]     (version tomee-home))
   ([path] (pretty-output (get (sh (str path "/bin/version" extension)) :out))))
-
-(defn install-tomee [version location])
