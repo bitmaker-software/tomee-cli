@@ -21,8 +21,3 @@
             [tomee-cli.environment                 :refer (version)]
             [tomee-cli.execution                   :refer (start stop restart)])
   (:gen-class))
-
-(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (println "Hello, World!"))

@@ -83,6 +83,11 @@ Undeploy application:
     tomee-cli.core=> (undeploy "[path-to-tomee]" "[war/ear-file]")
     tomee-cli.core=> (undeploy "[war/ear-file]")
 
+Add new mail resource in tomee.xml:
+
+    tomee-cli.core=> (add-new-mail-resource ["[id-to-resource]" "[host-to-email-server]" "[port-to-email-server]" "[protocol-to-email-server]" "[is-auth [true/false]" "[username]" "[password]"])
+    tomee-cli.core=> (add-new-mail-resource ["[path-to-tomee]" "[id-to-resource]" "[host-to-email-server]" "[port-to-email-server]" "[protocol-to-email-server]" "[is-auth [true/false]" "[username]" "[password]"])
+
 ## License
 
 Copyright 2015 Bitmaker Software LDA and/or its affiliates and other contributors as indicated by the @authors tag. All rights reserved.
