@@ -17,20 +17,20 @@
                Hildeberto Mendonça <hildeberto.com>"}
  tomee-cli.execution
   (:require [clojure.java.shell    :refer (sh)]
-            [tomee-cli.environment :refer (tomee-home windows? extension)]))
+            [tomee-cli.environment :refer (tomee-home extension) :as env]))
 
 (defn start
   "Startup the Apache TomEE Server"
-  ([]     (start tomee-home))
-  ([tomee-path] (sh (str tomee-path "/bin/startup" extension))))
+  ([]     (start env/tomee-home))
+  ([tomee-path] (sh (str tomee-path "/bin/startup" env/extension))))
 
 (defn stop
   "Shutdown the Apache TomEE Server"
-  ([]     (stop tomee-home))
-  ([tomee-path] (sh (str tomee-path "/bin/shutdown" extension))))
+  ([]     (stop env/tomee-home))
+  ([tomee-path] (sh (str tomee-path "/bin/shutdown" env/extension))))
 
 (defn restart
   "Shutdown and start the Apache TomEE Server"
-  ([]     (restart tomee-home))
+  ([]     (restart env/tomee-home))
   ([tomee-path] (do (stop  tomee-path)
                     (start tomee-path))))
