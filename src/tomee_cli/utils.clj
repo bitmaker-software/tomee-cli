@@ -15,7 +15,8 @@
 
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
  tomee-cli.utils
-  (:require [clojure.string :refer (split)]))
+  (:require [clojure.string  :refer (split)]
+            [clojure.java.io :refer (copy input-stream output-stream reader writer as-file)]))
 
 (defn pretty-output [text]
   "Formats a text to be beautifully printed by the repl."
@@ -39,3 +40,15 @@
     (if (< point-pos 0)
       nil
       (.substring path (inc bar-pos)))))
+
+(defn copy-uri-to-file [uri file]
+  (with-open [in (input-stream uri)
+              out (output-stream file)]
+    (copy in out)
+    file))
+
+(defn unzip-file [zip-file destination]
+  (with-open [i (reader (java.util.zip.GZIPInputStream. (input-stream (as-file zip-file))))
+              o (java.io.PrintWriter. (writer (as-file destination)))]
+    (doseq [l (line-seq i)]
+      (.println o l))))

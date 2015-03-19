@@ -18,7 +18,7 @@
  tomee-cli.environment
   (:require [clojure.java.shell :refer (sh)]
             [clojure.string     :refer (split)]
-            [tomee-cli.utils    :refer (pretty-output)]
+            [tomee-cli.utils    :refer (copy-uri-to-file pretty-output unzip-file)]
             [environ.core       :refer (env)]))
 
 (def tomee-home (let [env-var (env :tomee-home)]
@@ -37,3 +37,10 @@
   "Prints version numbers of the environment elements"
   ([]     (version tomee-home))
   ([path] (pretty-output (get (sh (str path "/bin/version" extension)) :out))))
+
+(defn install-tomee [dist version]
+  (if (not (empty? tomee-home))
+    (copy-uri-to-file (str "http://apache.cu.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
+                                  (str "apache-tomee-" version "-" dist ".zip"))
+    "You can't do that because tomee-cli points to an existing installation."))
+
