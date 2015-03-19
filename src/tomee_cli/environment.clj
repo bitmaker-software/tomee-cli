@@ -27,7 +27,7 @@
 (def tomee-xml-path (str tomee-home "/conf/tomee.xml"))
 
 (defn windows?
-  "Verify if the operating system is windows or not"
+  "Verify if the operating system is windows"
   []
   (= (.toLowerCase (System/getProperty "os.name")) "windows"))
 
