@@ -14,21 +14,21 @@
 ;;limitations under the License.
 
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
- tomee-cli.configuration.mail-resource
+ tomee-cli.configuration.database-resource
   (:require [tomee-cli.resources   :refer (add-resource xml-with-out-str define-resource) :as resource]
             [tomee-cli.environment :refer (tomee-home) :as environment]))
 
-(defn define-mail-resource
-  "Define a mail resorce"
-  [id host port protocol auth user password]
-  (let [content (str "\nmail.smtp.host=" host "\nmail.smtp.port=" port "\nmail.transport.protocol=" protocol "\nmail.smtp.auth=" auth "\nmail.smtp.user=" user "\npassword=" password "\n")]
-    (resource/define-resource id "javax.mail.Session" content)))
+(defn define-database-resource
+  "Define a DataSource resource"
+  [id jdbc-drive jdbc-url username password jtamanaged]
+  (let [content (str "\njdbcDriver=" jdbc-drive "\njdbcUrl=" jdbc-url "username=" username "password=" password "JtaManaged=" jtamanaged)]
+    (define-resource id "javax.sql.DataSource" content)))
 
-(defn add-new-mail-resource
-  "Write mail resource in tomee.xml"
-  ([id host port protocol auth user password] (add-new-mail-resource environment/tomee-home id host port protocol auth user password))
-  ([path id host port protocol auth user password]
-   (let [new-resource (define-mail-resource id host port protocol auth user password)
+(defn add-new-datasource-resource
+  "Write a new DataSource Resource in tomee.xml"
+  ([id jdbc-drive jdbc-url username password jtamanaged] (add-new-datasource-resource environment/tomee-home id jdbc-drive jdbc-url username password jtamanaged))
+  ([path id jdbc-drive jdbc-url username password jtamanaged]
+   (let [new-resource (define-database-resource id jdbc-drive jdbc-url username password jtamanaged)
          new-tomee-xml (resource/add-resource environment/tomee-xml-path new-resource)
          str-new-tomee-xml (resource/xml-with-out-str new-tomee-xml)]
      (spit environment/tomee-xml-path str-new-tomee-xml)

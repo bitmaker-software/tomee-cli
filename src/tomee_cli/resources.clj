@@ -31,6 +31,10 @@
       (nil? content) (assoc xml-file :content [resource])
       :else (assoc xml-file :content (concat content [resource])))))
 
+(defn define-resource
+  [id resource-type content]
+  {:tag :Resource :attrs {:id (str id) :type (str resource-type)} :content [content]})
+
 (defn xml-with-out-str
   [xml-file]
   (with-out-str
