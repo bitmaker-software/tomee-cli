@@ -15,14 +15,14 @@
 
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
  tomee-cli.configuration.mail-resource
-  (:require [tomee-cli.resources   :refer (add-resource xml-with-out-str) :as resource]
+  (:require [tomee-cli.resources   :refer (add-resource xml-with-out-str define-resource) :as resource]
             [tomee-cli.environment :refer (tomee-home) :as environment]))
 
 (defn define-mail-resource
   "Define a mail resorce"
   [id host port protocol auth user password]
   (let [content (str "\nmail.smtp.host=" host "\nmail.smtp.port=" port "\nmail.transport.protocol=" protocol "\nmail.smtp.auth=" auth "\nmail.smtp.user=" user "\npassword=" password "\n")]
-    {:tag :Resource :attrs {:id (str id) :type "javax.mail.Session"} :content [content]}))
+    (resource/define-resource id "javax.mail.Session" content)))
 
 (defn add-new-mail-resource
   "Write mail resource in tomee.xml"

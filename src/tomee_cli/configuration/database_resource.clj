@@ -14,28 +14,12 @@
 ;;limitations under the License.
 
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
- tomee-cli.resources
-  (:require [clojure.xml     :refer (parse)   :as xml]
-            [clojure.java.io :refer (as-file) :as io]))
+ tomee-cli.configuration.database-resource
+  (:require [tomee-cli.resources   :refer (add-resource xml-with-out-str) :as resource]
+            [tomee-cli.environment :refer (tomee-home) :as environment]))
 
-(defn parse-xml
-  [path]
-  (xml/parse
-   (io/as-file path)))
-
-(defn add-resource
-  [path resource]
-  (let [xml-file (parse-xml path)
-        content  (xml-file :content)]
-    (cond
-      (nil? content) (assoc xml-file :content [resource])
-      :else (assoc xml-file :content (concat content [resource])))))
-
-(defn define-resource
-  [id resource-type content]
-  {:tag :Resource :attrs {:id (str id) :type (str resource-type)} :content [content]})
-
-(defn xml-with-out-str
-  [xml-file]
-  (with-out-str
-    (xml/emit xml-file)))
+(defn define-database-resource
+  "Define a mail resorce"
+  []
+  (let [content (str )]
+    {:tag :Resource :attrs {:id (str id) :type "javax.sql.DataSource"} :content [content]}))
