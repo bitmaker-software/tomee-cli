@@ -47,8 +47,18 @@
     (copy in out)
     file))
 
-(defn unzip-file [zip-file destination]
-  (with-open [i (reader (java.util.zip.GZIPInputStream. (input-stream (as-file zip-file))))
-              o (java.io.PrintWriter. (writer (as-file destination)))]
-    (doseq [l (line-seq i)]
-      (.println o l))))
+(defn unzip-file [zip-file]
+  (let [zs (java.util.zip.ZipInputStream. (input-stream zip-file))]
+    (loop [ze (.getNextEntry zs)]
+      (if (nil? ze)
+        (.close zs)
+        (do
+          (if (.isDirectory ze)
+              (println (str "Dir: " (.getName ze)))
+              (println (str "File: " (.getName ze))))
+          (recur (.getNextEntry zs)))))))
+  ;(with-open [i (reader (java.util.zip.GZIPInputStream. (input-stream (as-file zip-file))))
+  ;            o (java.io.PrintWriter. (writer (as-file destination)))]
+  ;  (doseq [l (line-seq i)]
+  ;    (.println o l)))
+  ;)
