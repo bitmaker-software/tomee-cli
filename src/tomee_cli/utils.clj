@@ -57,8 +57,3 @@
               (println (str "Dir: " (.getName ze)))
               (println (str "File: " (.getName ze))))
           (recur (.getNextEntry zs)))))))
-  ;(with-open [i (reader (java.util.zip.GZIPInputStream. (input-stream (as-file zip-file))))
-  ;            o (java.io.PrintWriter. (writer (as-file destination)))]
-  ;  (doseq [l (line-seq i)]
-  ;    (.println o l)))
-  ;)

@@ -40,7 +40,7 @@
 
 (defn install-tomee [dist version]
   (if (not (empty? tomee-home))
-    (copy-uri-to-file (str "http://apache.cu.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
-                                  (str "apache-tomee-" version "-" dist ".zip"))
+    (unzip-file (copy-uri-to-file (str "http://apache.cu.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
+                                  (str "apache-tomee-" version "-" dist ".zip")))
     "You can't do that because tomee-cli points to an existing installation."))
 
