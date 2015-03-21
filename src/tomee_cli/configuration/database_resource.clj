@@ -29,7 +29,7 @@
   ([id jdbc-drive jdbc-url username password jtamanaged] (add-new-datasource-resource environment/tomee-home id jdbc-drive jdbc-url username password jtamanaged))
   ([path id jdbc-drive jdbc-url username password jtamanaged]
    (let [new-resource (define-datasource-resource id jdbc-drive jdbc-url username password jtamanaged)
-         new-tomee-xml (resource/add-resource environment/tomee-xml-path new-resource)
+         new-tomee-xml (resource/add-resource (environment/tomee-xml-path path) new-resource)
          str-new-tomee-xml (resource/xml-with-out-str new-tomee-xml)]
-     (spit environment/tomee-xml-path str-new-tomee-xml)
+     (spit (environment/tomee-xml-path path) str-new-tomee-xml)
      str-new-tomee-xml)))

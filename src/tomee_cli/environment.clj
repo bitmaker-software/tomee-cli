@@ -24,7 +24,9 @@
 (def tomee-home (let [env-var (env :tomee-home)]
                   (if (nil? env-var) "." env-var)))
 
-(def tomee-xml-path (str tomee-home "/conf/tomee.xml"))
+(defn tomee-xml-path
+  ([] (tomee-xml-path tomee-home))
+  ([path] (str path "/conf/tomee.xml")))
 
 (defn windows?
   "Verify if the operating system is windows"
