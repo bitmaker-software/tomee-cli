@@ -50,4 +50,3 @@
   (testing "Should not replace resources/conf/tomee.xml with resource"
     (spit "resources/conf/tomee.xml" expect-new-tomee-xml)
     (is (= expect-new-tomee-xml-with-resource (add-new-mail-resource "SuperbizMail" "tomee.apache.org" "25" "smtp" "true" "email@apache.org" "123456")))))
-

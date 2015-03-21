@@ -30,7 +30,7 @@ It will create the directory `tomee-cli` in the current location.
 ## Checkstyle
 To check code style in TomEE-CLI, enter in the directory and run:
 
-    $ lein cljfmt test
+    $ lein cljfmt check
 
 To fix code style run:
 
