@@ -38,9 +38,9 @@
   ([]     (version tomee-home))
   ([path] (pretty-output (get (sh (str path "/bin/version" extension)) :out))))
 
-(defn install-tomee [dist version]
-  (if (not (empty? tomee-home))
-    (unzip-file (copy-uri-to-file (str "http://apache.cu.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
-                                  (str "apache-tomee-" version "-" dist ".zip")))
-    "You can't do that because tomee-cli points to an existing installation."))
+(defn install-tomee [ & {:keys [dist version location]
+                         :or {dist "webprofile" version "1.7.1" location "."}}]
+  (unzip-file
+    (copy-uri-to-file (str "http://apache.cu.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
+                      (str location "/apache-tomee-" version "-" dist ".zip"))))
 

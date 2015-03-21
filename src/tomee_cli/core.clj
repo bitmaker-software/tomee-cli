@@ -18,6 +18,6 @@
  tomee-cli.core
   (:require [tomee-cli.configuration.mail-resource :refer (add-new-mail-resource)]
             [tomee-cli.deployment                  :refer (deploy undeploy)]
-            [tomee-cli.environment                 :refer (version)]
+            [tomee-cli.environment                 :refer (install-tomee version)]
             [tomee-cli.execution                   :refer (start stop restart)])
   (:gen-class))
