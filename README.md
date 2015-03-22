@@ -4,7 +4,6 @@
 
 [![Dependencies Status](http://jarkeeper.com/bitmaker-software/tomee-cli/status.png)](http://jarkeeper.com/bitmaker-software/tomee-cli)
 [![Build Status](https://travis-ci.org/bitmaker-software/tomee-cli.svg)](https://travis-ci.org/bitmaker-software/tomee-cli)
-[![Coverage Status](https://coveralls.io/repos/bitmaker-software/tomee-cli/badge.svg)](https://coveralls.io/r/bitmaker-software/tomee-cli)
 [![Release](http://img.shields.io/github/release/bitmaker-software/tomee-cli.svg)](https://github.com/bitmaker-software/tomee-cli/releases/latest)
 
 This command line tool helps system administrators and developers to manage a instance of TomEE server.
