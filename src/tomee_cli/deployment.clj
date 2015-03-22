@@ -37,7 +37,7 @@
 
        (= extension "ear") (let [deploy-path (str tomee-path "/apps/")
                                  filename    (filename-from-path app-file-path)]
-                             (when (not (.exists (as-file deploy-path)))
+                             (when-not (.exists (as-file deploy-path))
                                (.mkdir (as-file deploy-path)))
                              (copy-file app-file-path
                                         (str deploy-path filename))
