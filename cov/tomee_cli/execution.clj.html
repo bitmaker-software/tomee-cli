@@ -1,0 +1,115 @@
+<html>
+ <head>
+  <link rel="stylesheet" href="../coverage.css"/>  <title> tomee_cli/execution.clj </title>
+ </head>
+ <body>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 001&nbsp;&nbsp;;;Copyright&nbsp;2015&nbsp;Bitmaker&nbsp;Software&nbsp;LDA&nbsp;and/or&nbsp;its&nbsp;affiliates&nbsp;and&nbsp;other&nbsp;contributors
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 002&nbsp;&nbsp;;;as&nbsp;indicated&nbsp;by&nbsp;the&nbsp;@authors&nbsp;tag.&nbsp;All&nbsp;rights&nbsp;reserved.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 003&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 004&nbsp;&nbsp;;;Licensed&nbsp;under&nbsp;the&nbsp;Apache&nbsp;License,&nbsp;Version&nbsp;2.0&nbsp;(the&nbsp;"License");
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 005&nbsp;&nbsp;;;you&nbsp;may&nbsp;not&nbsp;use&nbsp;this&nbsp;file&nbsp;except&nbsp;in&nbsp;compliance&nbsp;with&nbsp;the&nbsp;License.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 006&nbsp;&nbsp;;;You&nbsp;may&nbsp;obtain&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;License&nbsp;at
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 007&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 008&nbsp;&nbsp;;;&nbsp;&nbsp;&nbsp;&nbsp;http://www.apache.org/licenses/LICENSE-2.0
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 009&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 010&nbsp;&nbsp;;;Unless&nbsp;required&nbsp;by&nbsp;applicable&nbsp;law&nbsp;or&nbsp;agreed&nbsp;to&nbsp;in&nbsp;writing,&nbsp;software
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 011&nbsp;&nbsp;;;distributed&nbsp;under&nbsp;the&nbsp;License&nbsp;is&nbsp;distributed&nbsp;on&nbsp;an&nbsp;"AS&nbsp;IS"&nbsp;BASIS,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 012&nbsp;&nbsp;;;WITHOUT&nbsp;WARRANTIES&nbsp;OR&nbsp;CONDITIONS&nbsp;OF&nbsp;ANY&nbsp;KIND,&nbsp;either&nbsp;express&nbsp;or&nbsp;implied.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 013&nbsp;&nbsp;;;See&nbsp;the&nbsp;License&nbsp;for&nbsp;the&nbsp;specific&nbsp;language&nbsp;governing&nbsp;permissions&nbsp;and
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 014&nbsp;&nbsp;;;limitations&nbsp;under&nbsp;the&nbsp;License.
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 015&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="33 out of 34 forms covered">
+                 016&nbsp;&nbsp;(ns&nbsp;^{:author&nbsp;"Daniel&nbsp;Cunha&nbsp;(soro)&nbsp;<daniel.cunha@bitmaker-software.com>,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hildeberto&nbsp;Mendonça&nbsp;<hildeberto.com>"}
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 018&nbsp;&nbsp;&nbsp;tomee-cli.execution
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 019&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[clojure.java.shell&nbsp;&nbsp;&nbsp;&nbsp;:refer&nbsp;(sh)]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[tomee-cli.environment&nbsp;:refer&nbsp;(tomee-home&nbsp;extension)&nbsp;:as&nbsp;env]))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 021&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 022&nbsp;&nbsp;(defn&nbsp;start
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 023&nbsp;&nbsp;&nbsp;&nbsp;"Startup&nbsp;the&nbsp;Apache&nbsp;TomEE&nbsp;Server"
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 024&nbsp;&nbsp;&nbsp;&nbsp;([]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(start&nbsp;env/tomee-home))
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                 025&nbsp;&nbsp;&nbsp;&nbsp;([tomee-path]&nbsp;(sh&nbsp;(str&nbsp;tomee-path&nbsp;"/bin/startup"&nbsp;env/extension))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 026&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 027&nbsp;&nbsp;(defn&nbsp;stop
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 028&nbsp;&nbsp;&nbsp;&nbsp;"Shutdown&nbsp;the&nbsp;Apache&nbsp;TomEE&nbsp;Server"
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 029&nbsp;&nbsp;&nbsp;&nbsp;([]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(stop&nbsp;env/tomee-home))
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                 030&nbsp;&nbsp;&nbsp;&nbsp;([tomee-path]&nbsp;(sh&nbsp;(str&nbsp;tomee-path&nbsp;"/bin/shutdown"&nbsp;env/extension))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 031&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 032&nbsp;&nbsp;(defn&nbsp;restart
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 033&nbsp;&nbsp;&nbsp;&nbsp;"Shutdown&nbsp;and&nbsp;start&nbsp;the&nbsp;Apache&nbsp;TomEE&nbsp;Server"
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 034&nbsp;&nbsp;&nbsp;&nbsp;([]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(restart&nbsp;env/tomee-home))
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 035&nbsp;&nbsp;&nbsp;&nbsp;([tomee-path]&nbsp;(do&nbsp;(stop&nbsp;&nbsp;tomee-path)
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 036&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(start&nbsp;tomee-path))))
+                </span><br/>
+ </body>
+</html>

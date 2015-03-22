@@ -1,0 +1,142 @@
+<html>
+ <head>
+  <link rel="stylesheet" href="../coverage.css"/>  <title> tomee_cli/environment.clj </title>
+ </head>
+ <body>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 001&nbsp;&nbsp;;;Copyright&nbsp;2015&nbsp;Bitmaker&nbsp;Software&nbsp;LDA&nbsp;and/or&nbsp;its&nbsp;affiliates&nbsp;and&nbsp;other&nbsp;contributors
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 002&nbsp;&nbsp;;;as&nbsp;indicated&nbsp;by&nbsp;the&nbsp;@authors&nbsp;tag.&nbsp;All&nbsp;rights&nbsp;reserved.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 003&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 004&nbsp;&nbsp;;;Licensed&nbsp;under&nbsp;the&nbsp;Apache&nbsp;License,&nbsp;Version&nbsp;2.0&nbsp;(the&nbsp;"License");
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 005&nbsp;&nbsp;;;you&nbsp;may&nbsp;not&nbsp;use&nbsp;this&nbsp;file&nbsp;except&nbsp;in&nbsp;compliance&nbsp;with&nbsp;the&nbsp;License.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 006&nbsp;&nbsp;;;You&nbsp;may&nbsp;obtain&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;License&nbsp;at
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 007&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 008&nbsp;&nbsp;;;&nbsp;&nbsp;&nbsp;&nbsp;http://www.apache.org/licenses/LICENSE-2.0
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 009&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 010&nbsp;&nbsp;;;Unless&nbsp;required&nbsp;by&nbsp;applicable&nbsp;law&nbsp;or&nbsp;agreed&nbsp;to&nbsp;in&nbsp;writing,&nbsp;software
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 011&nbsp;&nbsp;;;distributed&nbsp;under&nbsp;the&nbsp;License&nbsp;is&nbsp;distributed&nbsp;on&nbsp;an&nbsp;"AS&nbsp;IS"&nbsp;BASIS,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 012&nbsp;&nbsp;;;WITHOUT&nbsp;WARRANTIES&nbsp;OR&nbsp;CONDITIONS&nbsp;OF&nbsp;ANY&nbsp;KIND,&nbsp;either&nbsp;express&nbsp;or&nbsp;implied.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 013&nbsp;&nbsp;;;See&nbsp;the&nbsp;License&nbsp;for&nbsp;the&nbsp;specific&nbsp;language&nbsp;governing&nbsp;permissions&nbsp;and
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 014&nbsp;&nbsp;;;limitations&nbsp;under&nbsp;the&nbsp;License.
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 015&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="35 out of 36 forms covered">
+                 016&nbsp;&nbsp;(ns&nbsp;^{:author&nbsp;"Daniel&nbsp;Cunha&nbsp;(soro)&nbsp;<daniel.cunha@bitmaker-software.com>,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hildeberto&nbsp;Mendonça&nbsp;<hildeberto.com>"}
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 018&nbsp;&nbsp;&nbsp;tomee-cli.environment
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 019&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[clojure.java.shell&nbsp;:refer&nbsp;(sh)]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[clojure.string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:refer&nbsp;(split)]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[tomee-cli.utils&nbsp;&nbsp;&nbsp;&nbsp;:refer&nbsp;(pretty-output)]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[environ.core&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:refer&nbsp;(env)]))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 023&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="5 out of 5 forms covered">
+                 024&nbsp;&nbsp;(def&nbsp;tomee-home&nbsp;(let&nbsp;[env-var&nbsp;(env&nbsp;:tomee-home)]
+                </span><br/>
+<span class="partial" title="5 out of 6 forms covered">
+                 025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(nil?&nbsp;env-var)&nbsp;"."&nbsp;env-var)))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 026&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 027&nbsp;&nbsp;(defn&nbsp;tomee-xml-path
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 028&nbsp;&nbsp;&nbsp;&nbsp;([]&nbsp;(tomee-xml-path&nbsp;tomee-home))
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                 029&nbsp;&nbsp;&nbsp;&nbsp;([path]&nbsp;(str&nbsp;path&nbsp;"/conf/tomee.xml")))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 030&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 031&nbsp;&nbsp;(defn&nbsp;server-xml-path
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 032&nbsp;&nbsp;&nbsp;&nbsp;([]&nbsp;(server-xml-path&nbsp;tomee-home))
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 033&nbsp;&nbsp;&nbsp;&nbsp;([path]&nbsp;(str&nbsp;path&nbsp;"/conf/server.xml")))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 034&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 035&nbsp;&nbsp;(defn&nbsp;windows?
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 036&nbsp;&nbsp;&nbsp;&nbsp;"Verify&nbsp;if&nbsp;the&nbsp;operating&nbsp;system&nbsp;is&nbsp;windows"
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 037&nbsp;&nbsp;&nbsp;&nbsp;[]
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                 038&nbsp;&nbsp;&nbsp;&nbsp;(=&nbsp;(.toLowerCase&nbsp;(System/getProperty&nbsp;"os.name"))&nbsp;"windows"))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 039&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="5 out of 6 forms covered">
+                 040&nbsp;&nbsp;(def&nbsp;extension&nbsp;(if&nbsp;(windows?)&nbsp;".exe"&nbsp;".sh"))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 041&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 042&nbsp;&nbsp;(defn&nbsp;version
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 043&nbsp;&nbsp;&nbsp;&nbsp;"Prints&nbsp;version&nbsp;numbers&nbsp;of&nbsp;the&nbsp;environment&nbsp;elements"
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 044&nbsp;&nbsp;&nbsp;&nbsp;([]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(version&nbsp;tomee-home))
+                </span><br/>
+<span class="not-covered" title="0 out of 12 forms covered">
+                 045&nbsp;&nbsp;&nbsp;&nbsp;([path]&nbsp;(pretty-output&nbsp;(get&nbsp;(sh&nbsp;(str&nbsp;path&nbsp;"/bin/version"&nbsp;extension))&nbsp;:out))))
+                </span><br/>
+ </body>
+</html>

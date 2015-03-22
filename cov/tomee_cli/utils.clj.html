@@ -1,0 +1,130 @@
+<html>
+ <head>
+  <link rel="stylesheet" href="../coverage.css"/>  <title> tomee_cli/utils.clj </title>
+ </head>
+ <body>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 001&nbsp;&nbsp;;;Copyright&nbsp;2015&nbsp;Bitmaker&nbsp;Software&nbsp;LDA&nbsp;and/or&nbsp;its&nbsp;affiliates&nbsp;and&nbsp;other&nbsp;contributors
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 002&nbsp;&nbsp;;;as&nbsp;indicated&nbsp;by&nbsp;the&nbsp;@authors&nbsp;tag.&nbsp;All&nbsp;rights&nbsp;reserved.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 003&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 004&nbsp;&nbsp;;;Licensed&nbsp;under&nbsp;the&nbsp;Apache&nbsp;License,&nbsp;Version&nbsp;2.0&nbsp;(the&nbsp;"License");
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 005&nbsp;&nbsp;;;you&nbsp;may&nbsp;not&nbsp;use&nbsp;this&nbsp;file&nbsp;except&nbsp;in&nbsp;compliance&nbsp;with&nbsp;the&nbsp;License.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 006&nbsp;&nbsp;;;You&nbsp;may&nbsp;obtain&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;License&nbsp;at
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 007&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 008&nbsp;&nbsp;;;&nbsp;&nbsp;&nbsp;&nbsp;http://www.apache.org/licenses/LICENSE-2.0
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 009&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 010&nbsp;&nbsp;;;Unless&nbsp;required&nbsp;by&nbsp;applicable&nbsp;law&nbsp;or&nbsp;agreed&nbsp;to&nbsp;in&nbsp;writing,&nbsp;software
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 011&nbsp;&nbsp;;;distributed&nbsp;under&nbsp;the&nbsp;License&nbsp;is&nbsp;distributed&nbsp;on&nbsp;an&nbsp;"AS&nbsp;IS"&nbsp;BASIS,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 012&nbsp;&nbsp;;;WITHOUT&nbsp;WARRANTIES&nbsp;OR&nbsp;CONDITIONS&nbsp;OF&nbsp;ANY&nbsp;KIND,&nbsp;either&nbsp;express&nbsp;or&nbsp;implied.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 013&nbsp;&nbsp;;;See&nbsp;the&nbsp;License&nbsp;for&nbsp;the&nbsp;specific&nbsp;language&nbsp;governing&nbsp;permissions&nbsp;and
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 014&nbsp;&nbsp;;;limitations&nbsp;under&nbsp;the&nbsp;License.
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 015&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="32 out of 33 forms covered">
+                 016&nbsp;&nbsp;(ns&nbsp;^{:author&nbsp;"Hildeberto&nbsp;Mendonça&nbsp;<hildeberto.com>"}
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 017&nbsp;&nbsp;&nbsp;tomee-cli.utils
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 018&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[clojure.string&nbsp;:refer&nbsp;(split)]))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 019&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="1 out of 2 forms covered">
+                 020&nbsp;&nbsp;(defn&nbsp;pretty-output&nbsp;[text]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 021&nbsp;&nbsp;&nbsp;&nbsp;"Formats&nbsp;a&nbsp;text&nbsp;to&nbsp;be&nbsp;beautifully&nbsp;printed&nbsp;by&nbsp;the&nbsp;repl."
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                 022&nbsp;&nbsp;&nbsp;&nbsp;(loop&nbsp;[out&nbsp;(split&nbsp;text&nbsp;#"\n")]
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                 023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(empty?&nbsp;out)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"--------------"
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[to-print&nbsp;(first&nbsp;out)]
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 026&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;to-print)
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                 027&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(recur&nbsp;(rest&nbsp;out))))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 028&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 029&nbsp;&nbsp;(defn&nbsp;filename-extension&nbsp;[filename]
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                 030&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[point-pos&nbsp;(.lastIndexOf&nbsp;filename&nbsp;".")]
+                </span><br/>
+<span class="covered" title="6 out of 6 forms covered">
+                 031&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(<&nbsp;point-pos&nbsp;0)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 032&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nil
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 033&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.toLowerCase&nbsp;(.substring&nbsp;filename&nbsp;(inc&nbsp;point-pos))))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 034&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                 035&nbsp;&nbsp;(defn&nbsp;filename-from-path&nbsp;[path]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 036&nbsp;&nbsp;&nbsp;&nbsp;"Identifies&nbsp;and&nbsp;returns&nbsp;a&nbsp;file&nbsp;name&nbsp;present&nbsp;in&nbsp;a&nbsp;path."
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                 037&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[point-pos&nbsp;(.lastIndexOf&nbsp;path&nbsp;".")
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                 038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bar-pos&nbsp;&nbsp;&nbsp;(.lastIndexOf&nbsp;path&nbsp;"/")]
+                </span><br/>
+<span class="covered" title="6 out of 6 forms covered">
+                 039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(<&nbsp;point-pos&nbsp;0)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nil
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                 041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.substring&nbsp;path&nbsp;(inc&nbsp;bar-pos)))))
+                </span><br/>
+ </body>
+</html>

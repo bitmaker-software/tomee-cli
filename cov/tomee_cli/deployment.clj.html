@@ -1,0 +1,178 @@
+<html>
+ <head>
+  <link rel="stylesheet" href="../coverage.css"/>  <title> tomee_cli/deployment.clj </title>
+ </head>
+ <body>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 001&nbsp;&nbsp;;;Copyright&nbsp;2015&nbsp;Bitmaker&nbsp;Software&nbsp;LDA&nbsp;and/or&nbsp;its&nbsp;affiliates&nbsp;and&nbsp;other&nbsp;contributors
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 002&nbsp;&nbsp;;;as&nbsp;indicated&nbsp;by&nbsp;the&nbsp;@authors&nbsp;tag.&nbsp;All&nbsp;rights&nbsp;reserved.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 003&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 004&nbsp;&nbsp;;;Licensed&nbsp;under&nbsp;the&nbsp;Apache&nbsp;License,&nbsp;Version&nbsp;2.0&nbsp;(the&nbsp;"License");
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 005&nbsp;&nbsp;;;you&nbsp;may&nbsp;not&nbsp;use&nbsp;this&nbsp;file&nbsp;except&nbsp;in&nbsp;compliance&nbsp;with&nbsp;the&nbsp;License.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 006&nbsp;&nbsp;;;You&nbsp;may&nbsp;obtain&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;License&nbsp;at
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 007&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 008&nbsp;&nbsp;;;&nbsp;&nbsp;&nbsp;&nbsp;http://www.apache.org/licenses/LICENSE-2.0
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 009&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 010&nbsp;&nbsp;;;Unless&nbsp;required&nbsp;by&nbsp;applicable&nbsp;law&nbsp;or&nbsp;agreed&nbsp;to&nbsp;in&nbsp;writing,&nbsp;software
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 011&nbsp;&nbsp;;;distributed&nbsp;under&nbsp;the&nbsp;License&nbsp;is&nbsp;distributed&nbsp;on&nbsp;an&nbsp;"AS&nbsp;IS"&nbsp;BASIS,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 012&nbsp;&nbsp;;;WITHOUT&nbsp;WARRANTIES&nbsp;OR&nbsp;CONDITIONS&nbsp;OF&nbsp;ANY&nbsp;KIND,&nbsp;either&nbsp;express&nbsp;or&nbsp;implied.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 013&nbsp;&nbsp;;;See&nbsp;the&nbsp;License&nbsp;for&nbsp;the&nbsp;specific&nbsp;language&nbsp;governing&nbsp;permissions&nbsp;and
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 014&nbsp;&nbsp;;;limitations&nbsp;under&nbsp;the&nbsp;License.
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 015&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="34 out of 35 forms covered">
+                 016&nbsp;&nbsp;(ns&nbsp;^{:author&nbsp;"Hildeberto&nbsp;Mendonça&nbsp;<hildeberto.com>"}
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 017&nbsp;&nbsp;&nbsp;tomee-cli.deployment
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 018&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[clojure.java.io&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:refer&nbsp;(as-file&nbsp;copy&nbsp;file&nbsp;delete-file)]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[tomee-cli.environment&nbsp;:refer&nbsp;(tomee-home)]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[tomee-cli.utils&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:refer&nbsp;(filename-extension&nbsp;filename-from-path)]))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 021&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 022&nbsp;&nbsp;(defn&nbsp;copy-file&nbsp;[source-path&nbsp;dest-path]
+                </span><br/>
+<span class="not-covered" title="0 out of 8 forms covered">
+                 023&nbsp;&nbsp;&nbsp;&nbsp;(copy&nbsp;(file&nbsp;source-path)&nbsp;(file&nbsp;dest-path)))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 024&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 025&nbsp;&nbsp;(defn&nbsp;deploy
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 026&nbsp;&nbsp;&nbsp;&nbsp;"Deploys&nbsp;a&nbsp;war/ear&nbsp;file&nbsp;on&nbsp;the&nbsp;server,&nbsp;by&nbsp;copying&nbsp;it&nbsp;to&nbsp;the&nbsp;folder&nbsp;/webapps
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 027&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;the&nbsp;file&nbsp;has&nbsp;the&nbsp;extension&nbsp;.war&nbsp;or&nbsp;to&nbsp;the&nbsp;folder&nbsp;/apps&nbsp;if&nbsp;the&nbsp;file&nbsp;has&nbsp;the&nbsp;extention&nbsp;.ear."
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 028&nbsp;&nbsp;&nbsp;&nbsp;([app-file-path]&nbsp;(deploy&nbsp;tomee-home&nbsp;app-file-path))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 029&nbsp;&nbsp;&nbsp;&nbsp;([tomee-path&nbsp;app-file-path]
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 030&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[filename&nbsp;&nbsp;&nbsp;&nbsp;(filename-from-path&nbsp;app-file-path)
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                 031&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extension&nbsp;&nbsp;&nbsp;(filename-extension&nbsp;(filename-from-path&nbsp;app-file-path))]
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 032&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(cond
+                </span><br/>
+<span class="not-covered" title="0 out of 9 forms covered">
+                 033&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(=&nbsp;extension&nbsp;"war")&nbsp;(let&nbsp;[deploy-path&nbsp;(str&nbsp;tomee-path&nbsp;"/webapps/")]
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 034&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(copy-file&nbsp;app-file-path
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(str&nbsp;deploy-path&nbsp;filename))
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                 036&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(str&nbsp;"Deployed&nbsp;"&nbsp;filename&nbsp;"&nbsp;at&nbsp;"&nbsp;deploy-path))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 037&nbsp;&nbsp;
+                </span><br/>
+<span class="not-covered" title="0 out of 9 forms covered">
+                 038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(=&nbsp;extension&nbsp;"ear")&nbsp;(let&nbsp;[deploy-path&nbsp;(str&nbsp;tomee-path&nbsp;"/apps/")
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;&nbsp;&nbsp;&nbsp;(filename-from-path&nbsp;app-file-path)]
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                 040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(not&nbsp;(.exists&nbsp;(as-file&nbsp;deploy-path)))
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                 041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.mkdir&nbsp;(as-file&nbsp;deploy-path)))
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(copy-file&nbsp;app-file-path
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(str&nbsp;deploy-path&nbsp;filename))
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                 044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(str&nbsp;"Deployed&nbsp;"&nbsp;filename&nbsp;"&nbsp;at&nbsp;"&nbsp;deploy-path))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 045&nbsp;&nbsp;
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                 046&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:else&nbsp;(str&nbsp;"Error&nbsp;deploying&nbsp;application.&nbsp;File&nbsp;"&nbsp;filename&nbsp;"&nbsp;invalid.")))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 047&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 048&nbsp;&nbsp;(defn&nbsp;undeploy
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 049&nbsp;&nbsp;&nbsp;&nbsp;"Undeploys&nbsp;a&nbsp;war/ear&nbsp;file&nbsp;from&nbsp;the&nbsp;server&nbsp;by&nbsp;deleting&nbsp;the&nbsp;war&nbsp;file&nbsp;from&nbsp;the&nbsp;folder&nbsp;/webapps
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 050&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;the&nbsp;ear&nbsp;file&nbsp;from&nbsp;the&nbsp;folder&nbsp;/apps."
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 051&nbsp;&nbsp;&nbsp;&nbsp;([app-filename]&nbsp;(undeploy&nbsp;tomee-home&nbsp;app-filename))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 052&nbsp;&nbsp;&nbsp;&nbsp;([tomee-path&nbsp;app-filename]
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 053&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[extension&nbsp;(filename-extension&nbsp;app-filename)]
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 054&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(cond
+                </span><br/>
+<span class="not-covered" title="0 out of 11 forms covered">
+                 055&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(=&nbsp;extension&nbsp;"war")&nbsp;(delete-file&nbsp;(str&nbsp;tomee-path&nbsp;"/webapps/"&nbsp;app-filename))
+                </span><br/>
+<span class="not-covered" title="0 out of 11 forms covered">
+                 056&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(=&nbsp;extension&nbsp;"ear")&nbsp;(delete-file&nbsp;(str&nbsp;tomee-path&nbsp;"/apps/"&nbsp;app-filename))
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                 057&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:else&nbsp;(str&nbsp;"Error&nbsp;undeploying&nbsp;application.&nbsp;File&nbsp;"&nbsp;(filename-from-path&nbsp;app-filename)&nbsp;"&nbsp;doesn't&nbsp;exist.")))))
+                </span><br/>
+ </body>
+</html>

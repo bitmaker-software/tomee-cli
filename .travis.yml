@@ -3,6 +3,7 @@ jdk:
   - openjdk7
   - oraclejdk7
   - oraclejdk8
+after_script: bash -ex test/coveralls.sh
 script: lein do test, cljfmt check
 notifications:
     slack: bitmaker:1KC4HkuyKvjvxcPAFi1qaDQj

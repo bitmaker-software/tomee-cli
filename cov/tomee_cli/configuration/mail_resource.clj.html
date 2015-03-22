@@ -1,0 +1,97 @@
+<html>
+ <head>
+  <link rel="stylesheet" href="../../coverage.css"/>  <title> tomee_cli/configuration/mail_resource.clj </title>
+ </head>
+ <body>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 001&nbsp;&nbsp;;;Copyright&nbsp;2015&nbsp;Bitmaker&nbsp;Software&nbsp;LDA&nbsp;and/or&nbsp;its&nbsp;affiliates&nbsp;and&nbsp;other&nbsp;contributors
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 002&nbsp;&nbsp;;;as&nbsp;indicated&nbsp;by&nbsp;the&nbsp;@authors&nbsp;tag.&nbsp;All&nbsp;rights&nbsp;reserved.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 003&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 004&nbsp;&nbsp;;;Licensed&nbsp;under&nbsp;the&nbsp;Apache&nbsp;License,&nbsp;Version&nbsp;2.0&nbsp;(the&nbsp;"License");
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 005&nbsp;&nbsp;;;you&nbsp;may&nbsp;not&nbsp;use&nbsp;this&nbsp;file&nbsp;except&nbsp;in&nbsp;compliance&nbsp;with&nbsp;the&nbsp;License.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 006&nbsp;&nbsp;;;You&nbsp;may&nbsp;obtain&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;License&nbsp;at
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 007&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 008&nbsp;&nbsp;;;&nbsp;&nbsp;&nbsp;&nbsp;http://www.apache.org/licenses/LICENSE-2.0
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 009&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 010&nbsp;&nbsp;;;Unless&nbsp;required&nbsp;by&nbsp;applicable&nbsp;law&nbsp;or&nbsp;agreed&nbsp;to&nbsp;in&nbsp;writing,&nbsp;software
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 011&nbsp;&nbsp;;;distributed&nbsp;under&nbsp;the&nbsp;License&nbsp;is&nbsp;distributed&nbsp;on&nbsp;an&nbsp;"AS&nbsp;IS"&nbsp;BASIS,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 012&nbsp;&nbsp;;;WITHOUT&nbsp;WARRANTIES&nbsp;OR&nbsp;CONDITIONS&nbsp;OF&nbsp;ANY&nbsp;KIND,&nbsp;either&nbsp;express&nbsp;or&nbsp;implied.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 013&nbsp;&nbsp;;;See&nbsp;the&nbsp;License&nbsp;for&nbsp;the&nbsp;specific&nbsp;language&nbsp;governing&nbsp;permissions&nbsp;and
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 014&nbsp;&nbsp;;;limitations&nbsp;under&nbsp;the&nbsp;License.
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 015&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="33 out of 34 forms covered">
+                 016&nbsp;&nbsp;(ns&nbsp;^{:author&nbsp;"Daniel&nbsp;Cunha&nbsp;(soro)&nbsp;<daniel.cunha@bitmaker-software.com>"}
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 017&nbsp;&nbsp;&nbsp;tomee-cli.configuration.mail-resource
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 018&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[tomee-cli.resources&nbsp;&nbsp;&nbsp;:refer&nbsp;(add-resource&nbsp;xml-with-out-str&nbsp;define-resource)&nbsp;:as&nbsp;resource]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[tomee-cli.environment&nbsp;:refer&nbsp;(tomee-home)&nbsp;:as&nbsp;environment]))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 020&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 021&nbsp;&nbsp;(defn&nbsp;define-mail-resource
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 022&nbsp;&nbsp;&nbsp;&nbsp;"Define&nbsp;a&nbsp;mail&nbsp;resorce"
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 023&nbsp;&nbsp;&nbsp;&nbsp;[id&nbsp;host&nbsp;port&nbsp;protocol&nbsp;auth&nbsp;user&nbsp;password]
+                </span><br/>
+<span class="covered" title="16 out of 16 forms covered">
+                 024&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[content&nbsp;(str&nbsp;"\nmail.smtp.host="&nbsp;host&nbsp;"\nmail.smtp.port="&nbsp;port&nbsp;"\nmail.transport.protocol="&nbsp;protocol&nbsp;"\nmail.smtp.auth="&nbsp;auth&nbsp;"\nmail.smtp.user="&nbsp;user&nbsp;"\npassword="&nbsp;password&nbsp;"\n")]
+                </span><br/>
+<span class="covered" title="5 out of 5 forms covered">
+                 025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(resource/define-resource&nbsp;id&nbsp;"javax.mail.Session"&nbsp;content)))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 026&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 027&nbsp;&nbsp;(defn&nbsp;add-new-mail-resource
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 028&nbsp;&nbsp;&nbsp;&nbsp;"Write&nbsp;mail&nbsp;resource&nbsp;in&nbsp;tomee.xml"
+                </span><br/>
+<span class="covered" title="10 out of 10 forms covered">
+                 029&nbsp;&nbsp;&nbsp;&nbsp;([id&nbsp;host&nbsp;port&nbsp;protocol&nbsp;auth&nbsp;user&nbsp;password]&nbsp;(add-new-mail-resource&nbsp;environment/tomee-home&nbsp;id&nbsp;host&nbsp;port&nbsp;protocol&nbsp;auth&nbsp;user&nbsp;password))
+                </span><br/>
+<span class="covered" title="12 out of 12 forms covered">
+                 030&nbsp;&nbsp;&nbsp;&nbsp;([path&nbsp;id&nbsp;host&nbsp;port&nbsp;protocol&nbsp;auth&nbsp;user&nbsp;password]&nbsp;(resource/add-new-resource&nbsp;path&nbsp;(define-mail-resource&nbsp;id&nbsp;host&nbsp;port&nbsp;protocol&nbsp;auth&nbsp;user&nbsp;password))))
+                </span><br/>
+ </body>
+</html>
