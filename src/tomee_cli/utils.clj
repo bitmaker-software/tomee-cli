@@ -16,7 +16,8 @@
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
  tomee-cli.utils
   (:require [clojure.string  :refer (split)]
-            [clojure.java.io :refer (copy input-stream output-stream reader writer as-file)]))
+            [clojure.java.io :refer (copy input-stream output-stream reader writer as-file)])
+  (:import (java.io FileOutputStream)))
 
 (defn pretty-output [text]
   "Formats a text to be beautifully printed by the repl."
@@ -52,8 +53,12 @@
     (loop [ze (.getNextEntry zs)]
       (if (nil? ze)
         (.close zs)
-        (do
-          (println (str "Extracting: " (.getName ze)))
-          (when (.isDirectory ze)
-              (.mkdir (as-file (str location "/" (.getName ze)))))
+        (let [size (.getSize ze)
+              name (.getName ze)]
+          (println (str "Extracting: " name))
+          (if (.isDirectory ze)
+            (.mkdir (as-file (str location "/" name)))
+            (let [bytes (byte-array size)]
+              (.read zs bytes 0 size)
+              (.write (FileOutputStream. (str location "/" name)) bytes)))
           (recur (.getNextEntry zs)))))))
