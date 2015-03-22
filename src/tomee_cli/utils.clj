@@ -47,13 +47,13 @@
     (copy in out)
     file))
 
-(defn unzip-file [zip-file]
+(defn unzip-file [zip-file location]
   (let [zs (java.util.zip.ZipInputStream. (input-stream zip-file))]
     (loop [ze (.getNextEntry zs)]
       (if (nil? ze)
         (.close zs)
         (do
-          (if (.isDirectory ze)
-              (println (str "Dir: " (.getName ze)))
-              (println (str "File: " (.getName ze))))
+          (println (str "Extracting: " (.getName ze)))
+          (when (.isDirectory ze)
+              (.mkdir (as-file (str location "/" (.getName ze)))))
           (recur (.getNextEntry zs)))))))

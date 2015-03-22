@@ -44,5 +44,5 @@
                          :or {dist "webprofile" version "1.7.1" location "."}}]
   (unzip-file
     (copy-uri-to-file (str "http://apache.cu.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
-                      (str location "/apache-tomee-" version "-" dist ".zip"))))
+                      (str location "/apache-tomee-" version "-" dist ".zip")) location))
 
