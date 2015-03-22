@@ -28,6 +28,10 @@
   ([] (tomee-xml-path tomee-home))
   ([path] (str path "/conf/tomee.xml")))
 
+(defn server-xml-path
+  ([] (server-xml-path tomee-home))
+  ([path] (str path "/conf/server.xml")))
+
 (defn windows?
   "Verify if the operating system is windows"
   []
