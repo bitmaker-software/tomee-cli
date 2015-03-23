@@ -30,4 +30,5 @@
   :main ^:skip-aot tomee-cli.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
-             :test {:env {:tomee-home "resources"}}})
+             :test {:env {:tomee-home "resources"}}
+             :dev {:plugins [[lein-kibit "0.0.8"]] }})
