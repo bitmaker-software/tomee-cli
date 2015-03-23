@@ -55,10 +55,13 @@
         (.close zs)
         (let [size (.getSize ze)
               name (.getName ze)]
-          (println (str "Extracting: " name))
+          (println (str "Extracting: " name " (" size ")"))
           (if (.isDirectory ze)
             (.mkdir (as-file (str location "/" name)))
             (let [bytes (byte-array size)]
-              (.read zs bytes 0 size)
-              (.write (FileOutputStream. (str location "/" name)) bytes)))
+              (println (str "Read " (.read zs bytes 0 size) " bytes"))
+              (with-open [out (java.io.DataOutputStream.
+                                (java.io.BufferedOutputStream.
+                                 (java.io.FileOutputStream. (str location "/" name))))]
+                (.write out bytes))))
           (recur (.getNextEntry zs)))))))
