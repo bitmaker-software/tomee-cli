@@ -91,8 +91,8 @@ Add new mail resource in tomee.xml:
 
 Add new datasource in tomee.xml:
 
-      tomee-cli.core=> (add-new-datasource-resource ["[id-to-resource]" "[jdbc-drive]" "[jdbc-url]" "[username]" "[password]" "[jtamanaged]"])
-      tomee-cli.core=> (add-new-datasource-resource ["[path-to-tome]" "[id-to-resource]" "[jdbc-drive]" "[jdbc-url]" "[username]" "[password]" "[jtamanaged]"])
+    tomee-cli.core=> (add-new-datasource-resource ["[id-to-resource]" "[jdbc-drive]" "[jdbc-url]" "[username]" "[password]" "[jtamanaged]"])
+    tomee-cli.core=> (add-new-datasource-resource ["[path-to-tome]" "[id-to-resource]" "[jdbc-drive]" "[jdbc-url]" "[username]" "[password]" "[jtamanaged]"])
 
 
 ## License
