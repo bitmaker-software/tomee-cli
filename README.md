@@ -88,6 +88,13 @@ Add new mail resource in tomee.xml:
     tomee-cli.core=> (add-new-mail-resource ["[id-to-resource]" "[host-to-email-server]" "[port-to-email-server]" "[protocol-to-email-server]" "[is-auth [true/false]" "[username]" "[password]"])
     tomee-cli.core=> (add-new-mail-resource ["[path-to-tomee]" "[id-to-resource]" "[host-to-email-server]" "[port-to-email-server]" "[protocol-to-email-server]" "[is-auth [true/false]" "[username]" "[password]"])
 
+
+Add new datasource in tomee.xml:
+
+    tomee-cli.core=> (add-new-datasource-resource ["[id-to-resource]" "[jdbc-drive]" "[jdbc-url]" "[username]" "[password]" "[jtamanaged]"])
+    tomee-cli.core=> (add-new-datasource-resource ["[path-to-tome]" "[id-to-resource]" "[jdbc-drive]" "[jdbc-url]" "[username]" "[password]" "[jtamanaged]"])
+
+
 ## License
 
 Copyright 2015 Bitmaker Software LDA and/or its affiliates and other contributors as indicated by the @authors tag. All rights reserved.

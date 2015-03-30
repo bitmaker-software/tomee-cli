@@ -28,6 +28,10 @@
   ([] (tomee-xml-path tomee-home))
   ([path] (str path "/conf/tomee.xml")))
 
+(defn server-xml-path
+  ([] (server-xml-path tomee-home))
+  ([path] (str path "/conf/server.xml")))
+
 (defn windows?
   "Verify if the operating system is windows"
   []
@@ -46,4 +50,3 @@
     (copy-uri-to-file (str "http://apache.cu.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
                       (str location "/apache-tomee-" version "-" dist ".zip"))
     location))
-

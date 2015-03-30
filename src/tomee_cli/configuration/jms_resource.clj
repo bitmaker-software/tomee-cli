@@ -13,12 +13,7 @@
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
 
-(ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>,
-               Hildeberto Mendonça <hildeberto.com>"}
- tomee-cli.core
-  (:require [tomee-cli.configuration.mail-resource     :refer (add-new-mail-resource)]
-            [tomee-cli.configuration.database-resource :refer (add-new-datasource-resource)]
-            [tomee-cli.deployment                      :refer (deploy undeploy)]
-            [tomee-cli.environment                     :refer (install-tomee version)]
-            [tomee-cli.execution                       :refer (start stop restart)])
-  (:gen-class))
+(ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
+ tomee-cli.configuration.jms-resource
+  (:require [tomee-cli.resources   :refer (add-resource xml-with-out-str define-resource) :as resource]
+            [tomee-cli.environment :refer (tomee-home) :as environment]))

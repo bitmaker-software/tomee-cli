@@ -30,17 +30,13 @@
 
 (defn filename-extension [filename]
   (let [point-pos (.lastIndexOf filename ".")]
-    (if (< point-pos 0)
-      nil
-      (.toLowerCase (.substring filename (inc point-pos))))))
+    (when-not (neg? point-pos) (.toLowerCase (.substring filename (inc point-pos))))))
 
 (defn filename-from-path [path]
   "Identifies and returns a file name present in a path."
   (let [point-pos (.lastIndexOf path ".")
         bar-pos   (.lastIndexOf path "/")]
-    (if (< point-pos 0)
-      nil
-      (.substring path (inc bar-pos)))))
+    (when-not (neg? point-pos) (.substring path (inc bar-pos)))))
 
 (defn copy-uri-to-file [uri file]
   (if (.exists (as-file file))
