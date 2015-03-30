@@ -43,25 +43,34 @@
       (.substring path (inc bar-pos)))))
 
 (defn copy-uri-to-file [uri file]
-  (with-open [in (input-stream uri)
-              out (output-stream file)]
-    (copy in out)
-    file))
+  (if (.exists (as-file file))
+    (as-file file)
+    (with-open [in (input-stream uri)
+                out (output-stream file)]
+      (copy in out)
+      file)))
 
 (defn unzip-file [zip-file location]
-  (let [zs (java.util.zip.ZipInputStream. (input-stream zip-file))]
-    (loop [ze (.getNextEntry zs)]
-      (if (nil? ze)
-        (.close zs)
-        (let [size (.getSize ze)
-              name (.getName ze)]
-          (println (str "Extracting: " name " (" size ")"))
-          (if (.isDirectory ze)
-            (.mkdir (as-file (str location "/" name)))
-            (let [bytes (byte-array size)]
-              (println (str "Read " (.read zs bytes 0 size) " bytes"))
-              (with-open [out (java.io.DataOutputStream.
-                                (java.io.BufferedOutputStream.
-                                 (java.io.FileOutputStream. (str location "/" name))))]
-                (.write out bytes))))
-          (recur (.getNextEntry zs)))))))
+  (let [zip-file (java.util.zip.ZipFile. zip-file)
+        enum     (enumeration-seq (.entries zip-file))]
+    (map (fn [zip-entry]
+           (println (.getName zip-entry))) enum)))
+
+;(defn unzip-file [zip-file location]
+;  (let [zs (java.util.zip.ZipInputStream. (input-stream zip-file))]
+;    (loop [ze (.getNextEntry zs)]
+;      (if (nil? ze)
+;        (.close zs)
+;        (let [size (.getSize ze)
+;              name (.getName ze)]
+;          (println (str "Extracting: " name " (" size ")"))
+;          (if (.isDirectory ze)
+;            (.mkdir (as-file (str location "/" name)))
+;            (let [bytes (byte-array size)
+;                  read-bytes (.read zs bytes 0 size)]
+;              (println (str "Read " read-bytes " bytes"))
+;              (with-open [out (java.io.DataOutputStream.
+;                                (java.io.BufferedOutputStream.
+;                                 (java.io.FileOutputStream. (str location "/" name))))]
+;                (.write out bytes 0 read-bytes))))
+;          (recur (.getNextEntry zs)))))))
