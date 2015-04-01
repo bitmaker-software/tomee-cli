@@ -18,6 +18,7 @@
   (:require [tomee-cli.resources   :refer (add-resource xml-with-out-str define-resource) :as resource]
             [tomee-cli.environment :refer (tomee-home) :as environment]))
 
+
 (defn define-mail-resource
   "Define a mail resorce"
   [id host port protocol auth user password]
@@ -26,5 +27,6 @@
 
 (defn add-new-mail-resource
   "Write mail resource in tomee.xml"
-  ([id host port protocol auth user password] (add-new-mail-resource environment/tomee-home id host port protocol auth user password))
-  ([path id host port protocol auth user password] (resource/add-new-resource path (define-mail-resource id host port protocol auth user password))))
+  [& {:keys [path id host port protocol auth user password]
+      :or {path environment/tomee-home password "" port 25}}]
+  (resource/add-new-resource path (define-mail-resource id host port protocol auth user password)))

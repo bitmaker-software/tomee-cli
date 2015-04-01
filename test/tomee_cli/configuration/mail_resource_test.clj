@@ -40,13 +40,13 @@
 
 (deftest add-new-mail-resource-test
   (testing "Should add new mail resource in tomee.xml without TOMEE_HOME env"
-    (is (= expect-new-tomee-xml (add-new-mail-resource "resources" "SuperbizMail" "tomee.apache.org" 25 "smtp" true "email@apache.org" 123456)))))
+    (is (= expect-new-tomee-xml (add-new-mail-resource :path "resources" :id "SuperbizMail" :host "tomee.apache.org" :protocol "smtp" :auth true :user "email@apache.org" :password 123456)))))
 
 (deftest add-new-mail-resource-with-env-test
   (testing "Should add new mail resource in tomee.xml with TOMEE_HOME env"
-    (is (= expect-new-tomee-xml (add-new-mail-resource "SuperbizMail" "tomee.apache.org" 25 "smtp" true "email@apache.org" 123456)))))
+    (is (= expect-new-tomee-xml (add-new-mail-resource :id "SuperbizMail" :host "tomee.apache.org" :protocol "smtp" :auth true :user "email@apache.org" :password 123456)))))
 
 (deftest add-new-mail-resource-in-tomee-with-resource-test
   (testing "Should not replace resources/conf/tomee.xml with resource"
     (spit "resources/conf/tomee.xml" expect-new-tomee-xml)
-    (is (= expect-new-tomee-xml-with-resource (add-new-mail-resource "SuperbizMail" "tomee.apache.org" 25 "smtp" true "email@apache.org" 123456)))))
+    (is (= expect-new-tomee-xml-with-resource (add-new-mail-resource :id "SuperbizMail" :host "tomee.apache.org" :protocol "smtp" :auth true :user "email@apache.org" :password 123456)))))
