@@ -15,8 +15,7 @@
 
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
  tomee-cli.utils
-  (:require [clojure.string  :refer (split)]
-            [clojure.java.io :refer (copy input-stream output-stream reader writer as-file)])
+  (:require [clojure.string  :refer (split)])
   (:import (java.io FileOutputStream)))
 
 (defn pretty-output [text]
@@ -37,27 +36,3 @@
   (let [point-pos (.lastIndexOf path ".")
         bar-pos   (.lastIndexOf path "/")]
     (when-not (neg? point-pos) (.substring path (inc bar-pos)))))
-
-(defn copy-uri-to-file [uri file]
-  (if (.exists (as-file file))
-    (as-file file)
-    (with-open [in (input-stream uri)
-                out (output-stream file)]
-      (copy in out)
-      file)))
-
-(defn unzip-file [zip-file location]
-  (let [zip-file (java.util.zip.ZipFile. zip-file)
-        enum (enumeration-seq (.entries zip-file))]
-    (str (count (map (fn [zip-entry]
-           (let [file-name (.getName zip-entry)
-                 file      (as-file file-name)
-                 parent    (.getParentFile file)]
-             (if (.endsWith file-name "/")
-               (str " ups" (.mkdirs file))
-               (do (when (not (nil? parent))
-                     (.mkdirs parent))
-                   (with-open [out (java.io.FileOutputStream. file)
-                               in  (.getInputStream zip-file zip-entry)]
-                     (let [bytes (byte-array (.getSize zip-entry))]
-                       (.write out bytes 0 (.read in bytes)))))))) enum)) " files uncompressed at " location)))

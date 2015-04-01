@@ -19,6 +19,7 @@
   (:require [tomee-cli.configuration.mail-resource     :refer (add-new-mail-resource)]
             [tomee-cli.configuration.database-resource :refer (add-new-datasource-resource)]
             [tomee-cli.deployment                      :refer (deploy undeploy)]
-            [tomee-cli.environment                     :refer (install-tomee version)]
-            [tomee-cli.execution                       :refer (start stop restart)])
+            [tomee-cli.environment                     :refer (version)]
+            [tomee-cli.execution                       :refer (start stop restart)]
+            [tomee-cli.installation                    :refer (install-tomee)])
   (:gen-class))
