@@ -20,11 +20,12 @@
 
 (defn define-datasource-resource
   "Define a DataSource resource"
-  [id jdbc-drive jdbc-url username password jtamanaged]
-  (let [content (str "\njdbcDriver=" jdbc-drive "\njdbcUrl=" jdbc-url "\nusername=" username "\npassword=" password "\nJtaManaged=" jtamanaged "\n")]
+  [id jdbc-drive jdbc-url username password jta-managed]
+  (let [content (str "\njdbcDriver=" jdbc-drive "\njdbcUrl=" jdbc-url "\nusername=" username "\npassword=" password "\nJtaManaged=" jta-managed "\n")]
     (resource/define-resource id "javax.sql.DataSource" content)))
 
 (defn add-new-datasource-resource
   "Write a new DataSource Resource in tomee.xml"
-  ([id jdbc-drive jdbc-url username password jtamanaged] (add-new-datasource-resource environment/tomee-home id jdbc-drive jdbc-url username password jtamanaged))
-  ([path id jdbc-drive jdbc-url username password jtamanaged] (resource/add-new-resource path (define-datasource-resource id jdbc-drive jdbc-url username password jtamanaged))))
+  [& {:keys [path id jdbc-drive jdbc-url username password jta-managed]
+      :or {jta-managed true path environment/tomee-home}}]
+  (resource/add-new-resource path (define-datasource-resource id jdbc-drive jdbc-url username password jta-managed)))

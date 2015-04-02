@@ -91,15 +91,19 @@ The parameters don't have ordenation. You need only specify the key, like the sa
 
 :port has 25 as default value.
 
-:password has "" as default value
+:password has "" as default value.
 
-:path has TOMEE\_HOME as default value
+:path has TOMEE\_HOME as default value.
 
 ### Add new datasource in tomee.xml:
 
-    tomee-cli.core=> (add-new-datasource-resource ["[id-to-resource]" "[jdbc-drive]" "[jdbc-url]" "[username]" "[password]" "[jtamanaged]"])
-    tomee-cli.core=> (add-new-datasource-resource ["[path-to-tome]" "[id-to-resource]" "[jdbc-drive]" "[jdbc-url]" "[username]" "[password]" "[jtamanaged]"])
+    tomee-cli.core=> (add-new-datasource-resource :path "[TOMEE_HOME]" :id "[id-to-resource]" :jdbc-drive "[jdbc-drive]" :jdbc-url "[jdbc-url]" :username "[username]" :password "[password]" :jta-managed "[jta-managed]"])
 
+The parameters don't have ordenation. You need only specify the key, like the sample.
+
+:jta-managed has true as default value.
+
+:path has TOMEE\_HOME as default value.
 
 ## License
 
