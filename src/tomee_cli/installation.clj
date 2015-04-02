@@ -15,9 +15,10 @@
 
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
  tomee-cli.installation
-  (:require [clojure.java.shell :refer (sh)]
-            [clojure.java.io :refer (copy input-stream output-stream reader writer as-file)]
-            [tomee-cli.environment :refer (extension) :as env]))
+  (:require [clojure.java.shell    :refer (sh)]
+            [clojure.java.io       :refer (copy input-stream output-stream reader writer as-file)]
+            [tomee-cli.environment :refer (extension) :as env]
+            [tomee-cli.utils       :refer (filename-extension) :as utils]))
 
 (defn download-file [uri file]
   (if (.exists (as-file file))
@@ -43,8 +44,14 @@
                      (let [bytes (byte-array (.getSize zip-entry))]
                        (.write out bytes 0 (.read in bytes)))))))) enum))) nil location)))
 
-(defn grant-permission [path]
-  path)
+(defn grant-permission [path-bin-directory]
+  "Scans the bin directory, looking for .sh files, and gives execution permission for them."
+  (let [directory (java.io.File. path-bin-directory)
+        files     (.listFiles directory)]
+    (map (fn [file] (.setExecutable file true))
+         (filter #(and (.isFile %) 
+                       (= (str "." (utils/filename-extension (.getName %))) env/extension)) 
+                 files))))
 
 (defn install-tomee [ & {:keys [dist version location]
                          :or {dist "webprofile" version "1.7.1" location "."}}]
