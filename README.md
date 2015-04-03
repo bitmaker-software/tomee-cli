@@ -85,25 +85,37 @@ The REPL starts with all utility functions available by default in the namespace
 
 ### Add new mail resource in tomee.xml:
 
-    tomee-cli.core=> (add-new-mail-resource :path "[TOMEE_HOME]" :id "[id-to-resource]" :host "[host-to-email-server]" :port "[port-to-email-server]" :protocol "[protocol-to-email-server]" :auth "[true/false]" :user "[username]" :password "[password]")
+    tomee-cli.core=> (add-mail-resource :path "[TOMEE_HOME]" :id "[id-to-resource]" :host "[host-to-email-server]" :port "[port-to-email-server]" :protocol "[protocol-to-email-server]" :auth "[true/false]" :user "[username]" :password "[password]")
 
 The parameters don't have ordenation. You need only specify the key, like the sample.
 
-:port has 25 as default value.
+Default values:
 
-:password has "" as default value.
+:port = 25
 
-:path has TOMEE\_HOME as default value.
+:password = ""
+
+:path = TOMEE\_HOME
 
 ### Add new datasource in tomee.xml:
 
-    tomee-cli.core=> (add-new-datasource-resource :path "[TOMEE_HOME]" :id "[id-to-resource]" :jdbc-drive "[jdbc-drive]" :jdbc-url "[jdbc-url]" :username "[username]" :password "[password]" :jta-managed "[jta-managed]"])
+    tomee-cli.core=> (add-datasource-resource :path "[TOMEE_HOME]" :id "[id-to-resource]" :jdbc-drive "[jdbc-drive]" :jdbc-url "[jdbc-url]" :username "[username]" :password "[password]" :jta-managed "[jta-managed]"])
 
 The parameters don't have ordenation. You need only specify the key, like the sample.
 
-:jta-managed has true as default value.
+Default values:
 
-:path has TOMEE\_HOME as default value.
+:jdbc-drive = "org.hsqldb.jdbcDriver"
+
+:jdbc-url = "jdbc:hsqldb:file:data/hsqldb/hsqldb"
+
+:username = "sa"
+
+:password = ""
+
+:jta-managed = true.
+
+:path = TOMEE\_HOME.
 
 ## License
 
