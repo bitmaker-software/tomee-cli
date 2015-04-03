@@ -24,8 +24,8 @@
   (let [content (str "\njdbcDriver=" jdbc-drive "\njdbcUrl=" jdbc-url "\nusername=" username "\npassword=" password "\nJtaManaged=" jta-managed "\n")]
     (resource/define-resource id "javax.sql.DataSource" content)))
 
-(defn add-new-datasource-resource
+(defn add-datasource-resource
   "Write a new DataSource Resource in tomee.xml"
   [& {:keys [path id jdbc-drive jdbc-url username password jta-managed]
-      :or {jta-managed true path environment/tomee-home}}]
+      :or {jdbc-drive "org.hsqldb.jdbcDriver" jdbc-url "jdbc:hsqldb:file:data/hsqldb/hsqldb" username "sa" password "" jta-managed true path environment/tomee-home}}]
   (resource/add-new-resource path (define-datasource-resource id jdbc-drive jdbc-url username password jta-managed)))

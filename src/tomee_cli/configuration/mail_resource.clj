@@ -25,7 +25,7 @@
   (let [content (str "\nmail.smtp.host=" host "\nmail.smtp.port=" port "\nmail.transport.protocol=" protocol "\nmail.smtp.auth=" auth "\nmail.smtp.user=" user "\npassword=" password "\n")]
     (resource/define-resource id "javax.mail.Session" content)))
 
-(defn add-new-mail-resource
+(defn add-mail-resource
   "Write mail resource in tomee.xml"
   [& {:keys [path id host port protocol auth user password]
       :or {path environment/tomee-home password "" port 25}}]
