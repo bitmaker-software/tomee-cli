@@ -18,9 +18,9 @@
   (:require [clojure.test                          :refer :all]
             [tomee-cli.configuration.mail-resource :refer :all]))
 
-(def expect {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.mail.Session"} :content ["\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n"]})
-(def expect-new-tomee-xml "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\n\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n\n</Resource>\n</tomee>\n")
-(def expect-new-tomee-xml-with-resource "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\n\n\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n\n\n</Resource>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\n\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n\n</Resource>\n</tomee>\n")
+(def expect {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.mail.Session"} :content ["mail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456"]})
+(def expect-new-tomee-xml "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n</Resource>\n</tomee>\n")
+(def expect-new-tomee-xml-with-resource "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\n\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n\n</Resource>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n</Resource>\n</tomee>\n")
 
 (defn before [])
 

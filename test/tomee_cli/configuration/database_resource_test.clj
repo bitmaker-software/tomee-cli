@@ -18,9 +18,9 @@
   (:require [clojure.test                              :refer :all]
             [tomee-cli.configuration.database-resource :refer :all]))
 
-(def expect {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.sql.DataSource"} :content ["\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n"]})
-(def expect-new-tomee-xml "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.sql.DataSource'>\n\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n\n</Resource>\n</tomee>\n")
-(def expect-new-tomee-xml-with-resource "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.sql.DataSource'>\n\n\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n\n\n</Resource>\n<Resource id='SuperbizMail' type='javax.sql.DataSource'>\n\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n\n</Resource>\n</tomee>\n")
+(def expect {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.sql.DataSource"} :content ["jdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true"]})
+(def expect-new-tomee-xml "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.sql.DataSource'>\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n</Resource>\n</tomee>\n")
+(def expect-new-tomee-xml-with-resource "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.sql.DataSource'>\n\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n\n</Resource>\n<Resource id='SuperbizMail' type='javax.sql.DataSource'>\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n</Resource>\n</tomee>\n")
 
 (defn before [])
 

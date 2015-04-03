@@ -22,7 +22,7 @@
 (defn define-mail-resource
   "Define a mail resorce"
   [id host port protocol auth user password]
-  (let [content (str "\nmail.smtp.host=" host "\nmail.smtp.port=" port "\nmail.transport.protocol=" protocol "\nmail.smtp.auth=" auth "\nmail.smtp.user=" user "\npassword=" password "\n")]
+  (let [content (str "mail.smtp.host=" host "\nmail.smtp.port=" port "\nmail.transport.protocol=" protocol "\nmail.smtp.auth=" auth "\nmail.smtp.user=" user "\npassword=" password)]
     (resource/define-resource id "javax.mail.Session" content)))
 
 (defn add-mail-resource

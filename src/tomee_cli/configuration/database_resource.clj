@@ -21,7 +21,7 @@
 (defn define-datasource-resource
   "Define a DataSource resource"
   [id jdbc-drive jdbc-url username password jta-managed]
-  (let [content (str "\njdbcDriver=" jdbc-drive "\njdbcUrl=" jdbc-url "\nusername=" username "\npassword=" password "\nJtaManaged=" jta-managed "\n")]
+  (let [content (str "jdbcDriver=" jdbc-drive "\njdbcUrl=" jdbc-url "\nusername=" username "\npassword=" password "\nJtaManaged=" jta-managed)]
     (resource/define-resource id "javax.sql.DataSource" content)))
 
 (defn add-datasource-resource
