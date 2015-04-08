@@ -15,49 +15,55 @@
 
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
  tomee-cli.installation
-  (:require [clojure.java.shell    :refer (sh)]
-            [clojure.java.io       :refer (copy input-stream output-stream reader writer as-file)]
-            [tomee-cli.environment :refer (extension) :as env]
+  (:require [clojure.java.io                                   :as io]
+            [clojure.java.shell    :refer (sh)]
+            [tomee-cli.environment :refer (extension)          :as env]
             [tomee-cli.utils       :refer (filename-extension) :as utils]))
 
 (defn download-file [uri file]
-  (if (.exists (as-file file))
-    (as-file file)
-    (with-open [in (input-stream uri)
-                out (output-stream file)]
-      (copy in out)
+  (if (.exists (io/as-file file))
+    file
+    (with-open [in  (io/input-stream  uri)
+                out (io/output-stream file)]
+      (io/copy in out)
       file)))
 
-(defn unzip-file [zip-file location]
-  (let [zip-file (java.util.zip.ZipFile. zip-file)
+(defn unzip-file [file]
+  (let [zip-file (java.util.zip.ZipFile. file)
         enum (enumeration-seq (.entries zip-file))]
     (if (zero? (count (map (fn [zip-entry]
-           (let [file-name (.getName zip-entry)
-                 file      (as-file file-name)
-                 parent    (.getParentFile file)]
-             (if (.endsWith file-name "/")
-               (str " ups" (.mkdirs file))
-               (do (when (not (nil? parent))
-                     (.mkdirs parent))
-                   (with-open [out (java.io.FileOutputStream. file)
-                               in  (.getInputStream zip-file zip-entry)]
-                     (let [bytes (byte-array (.getSize zip-entry))]
-                       (.write out bytes 0 (.read in bytes)))))))) enum))) nil location)))
+                             (let [file-name (.getName zip-entry)
+                                   file      (io/as-file file-name)
+                                   parent    (.getParentFile file)]
+                               (if (.endsWith file-name "/")
+                                 (str " ups" (.mkdirs file))
+                                 (do
+                                   (when (not (nil? parent))
+                                     (.mkdirs parent))
+                                   (with-open [out (java.io.FileOutputStream. file)
+                                               in  (.getInputStream zip-file zip-entry)]
+                                     (let [bytes (byte-array (.getSize zip-entry))]
+                                       (.write out bytes 0 (.read in bytes))))))))
+                           enum)))
+      nil
+      file)))
 
 (defn grant-permission [path-bin-directory]
-  "Scans the bin directory, looking for .sh files, and gives execution permission for them."
-  (let [directory (java.io.File. path-bin-directory)
-        files     (.listFiles directory)]
-    (map (fn [file] (.setExecutable file true))
-         (filter #(and (.isFile %) 
-                       (= (str "." (utils/filename-extension (.getName %))) env/extension)) 
-                 files))))
+  (if (nil? path-bin-directory)
+    nil
+    path-bin-directory))
+  ;"Scans the bin directory, looking for .sh files, and gives execution permission for them."
+  ;(let [directory (java.io.File. path-bin-directory)
+  ;      files     (.listFiles directory)]
+  ;  (map (fn [file] (.setExecutable file true))
+  ;       (filter #(and (.isFile %)
+  ;                     (= (str "." (utils/filename-extension (.getName %))) env/extension))
+  ;               files))))
 
 (defn install-tomee [ & {:keys [dist version location]
                          :or {dist "webprofile" version "1.7.1" location "."}}]
   (grant-permission
     (unzip-file
       (download-file
-        (str "http://apache.cu.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
-        (str location "/apache-tomee-" version "-" dist ".zip"))
-      location)))
+        (str "http://apache.belnet.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
+        (str location "/apache-tomee-" version "-" dist ".zip")))))
