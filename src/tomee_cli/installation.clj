@@ -31,34 +31,36 @@
 (defn unzip-file [file]
   (let [zip-file (java.util.zip.ZipFile. file)
         enum (enumeration-seq (.entries zip-file))]
-    (if (zero? (count (map (fn [zip-entry]
-                             (let [file-name (.getName zip-entry)
-                                   file      (io/as-file file-name)
-                                   parent    (.getParentFile file)]
-                               (if (.endsWith file-name "/")
-                                 (str " ups" (.mkdirs file))
-                                 (do
-                                   (when (not (nil? parent))
-                                     (.mkdirs parent))
-                                   (with-open [out (java.io.FileOutputStream. file)
-                                               in  (.getInputStream zip-file zip-entry)]
-                                     (let [bytes (byte-array (.getSize zip-entry))]
-                                       (.write out bytes 0 (.read in bytes))))))))
-                           enum)))
-      nil
-      file)))
+    (loop [entries enum
+           location nil]
+      (if (empty? entries)
+        location
+        (let [zip-entry (first entries)
+              file-name (.getName zip-entry)
+              file      (io/as-file file-name)
+              parent    (.getParentFile file)]
+          
+          (if (.endsWith file-name "/")
+            (.mkdirs file)
+            (do
+              (when (not (nil? parent))
+                (.mkdirs parent))
+              (with-open [out (java.io.FileOutputStream. file)
+                          in  (.getInputStream zip-file zip-entry)]
+                (let [bytes (byte-array (.getSize zip-entry))]
+                  (.write out bytes 0 (.read in bytes))))))
+          (recur (rest entries) 
+                 (if (nil? location) (.getPath file) location)))))))
 
-(defn grant-permission [path-bin-directory]
-  (if (nil? path-bin-directory)
+(defn grant-permission [location-install]
+  "Scans the bin directory, looking for .sh files, and gives execution permission for them."
+  (if (nil? location-install)
     nil
-    path-bin-directory))
-  ;"Scans the bin directory, looking for .sh files, and gives execution permission for them."
-  ;(let [directory (java.io.File. path-bin-directory)
-  ;      files     (.listFiles directory)]
-  ;  (map (fn [file] (.setExecutable file true))
-  ;       (filter #(and (.isFile %)
-  ;                     (= (str "." (utils/filename-extension (.getName %))) env/extension))
-  ;               files))))
+    (let [files (.listFiles (java.io.File. (str location-install "/bin")))]
+      (map #(.setExecutable % true)
+           (filter #(and (.isFile %)
+                         (= (str "." (utils/filename-extension (.getName %))) env/extension))
+                   files)))))
 
 (defn install-tomee [ & {:keys [dist version location]
                          :or {dist "webprofile" version "1.7.1" location "."}}]
