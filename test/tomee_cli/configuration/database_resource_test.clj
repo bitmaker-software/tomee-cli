@@ -18,9 +18,9 @@
   (:require [clojure.test                              :refer :all]
             [tomee-cli.configuration.database-resource :refer :all]))
 
-(def expect {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.sql.DataSource"} :content ["jdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true"]})
-(def expect-new-tomee-xml "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.sql.DataSource'>\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n</Resource>\n</tomee>\n")
-(def expect-new-tomee-xml-with-resource "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.sql.DataSource'>\n\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n\n</Resource>\n<Resource id='SuperbizMail' type='javax.sql.DataSource'>\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n</Resource>\n</tomee>\n")
+(def expect {:tag :Resource :attrs {:id "SuperBizDataSource" :type "javax.sql.DataSource"} :content ["jdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true"]})
+(def expect-new-tomee-xml "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperBizDataSource' type='javax.sql.DataSource'>\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n</Resource>\n</tomee>\n")
+(def expect-new-tomee-xml-with-resource "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperBizDataSource' type='javax.sql.DataSource'>\n\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n\n</Resource>\n<Resource id='SuperBizDataSource' type='javax.sql.DataSource'>\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n</Resource>\n</tomee>\n")
 
 (defn before [])
 
@@ -36,17 +36,17 @@
 
 (deftest define-datasource-resource-test
   (testing "Should create database resource"
-    (is (= expect (define-datasource-resource "SuperbizMail" "com.mysql.Jdbc.Driver" "jdbc:mysql://localhost/db" "soro" 123456 true)))))
+    (is (= expect (define-datasource-resource "SuperBizDataSource" "com.mysql.Jdbc.Driver" "jdbc:mysql://localhost/db" "soro" 123456 true)))))
 
 (deftest add-datasource-resource-test
   (testing "Should add new database resource in tomee.xml without TOMEE_HOME env"
-    (is (= expect-new-tomee-xml (add-datasource-resource :path "resources" :id "SuperbizMail" :jdbc-drive "com.mysql.Jdbc.Driver" :jdbc-url "jdbc:mysql://localhost/db" :username "soro" :password 123456)))))
+    (is (= expect-new-tomee-xml (add-datasource-resource :path "resources" :id "SuperBizDataSource" :jdbc-drive "com.mysql.Jdbc.Driver" :jdbc-url "jdbc:mysql://localhost/db" :username "soro" :password 123456)))))
 
 (deftest add-datasource-resource-with-env-test
   (testing "Should add new database resource in tomee.xml with TOMEE_HOME env"
-    (is (= expect-new-tomee-xml (add-datasource-resource :path "resources" :id "SuperbizMail" :jdbc-drive "com.mysql.Jdbc.Driver" :jdbc-url "jdbc:mysql://localhost/db" :username "soro" :password 123456 :jta-managed true)))))
+    (is (= expect-new-tomee-xml (add-datasource-resource :path "resources" :id "SuperBizDataSource" :jdbc-drive "com.mysql.Jdbc.Driver" :jdbc-url "jdbc:mysql://localhost/db" :username "soro" :password 123456 :jta-managed true)))))
 
 (deftest add-datasource-resource-in-tomee-with-resource-test
   (testing "Should not replace resources/conf/tomee.xml with resource"
     (spit "resources/conf/tomee.xml" expect-new-tomee-xml)
-    (is (= expect-new-tomee-xml-with-resource (add-datasource-resource :path "resources" :id "SuperbizMail" :jdbc-drive "com.mysql.Jdbc.Driver" :jdbc-url "jdbc:mysql://localhost/db" :username "soro" :password 123456 :jta-managed true)))))
+    (is (= expect-new-tomee-xml-with-resource (add-datasource-resource :path "resources" :id "SuperBizDataSource" :jdbc-drive "com.mysql.Jdbc.Driver" :jdbc-url "jdbc:mysql://localhost/db" :username "soro" :password 123456 :jta-managed true)))))
