@@ -20,5 +20,6 @@
             [tomee-cli.configuration.database-resource :refer (add-datasource-resource)]
             [tomee-cli.deployment                      :refer (deploy undeploy)]
             [tomee-cli.environment                     :refer (version)]
-            [tomee-cli.execution                       :refer (start stop restart)])
+            [tomee-cli.execution                       :refer (start stop restart)]
+            [tomee-cli.installation                    :refer (install-tomee)])
   (:gen-class))
