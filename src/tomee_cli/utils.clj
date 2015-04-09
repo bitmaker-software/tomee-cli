@@ -15,8 +15,7 @@
 
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
  tomee-cli.utils
-  (:require [clojure.string  :refer (split)])
-  (:import (java.io FileOutputStream)))
+  (:require [clojure.string  :refer (split)]))
 
 (defn pretty-output [text]
   "Formats a text to be beautifully printed by the repl."

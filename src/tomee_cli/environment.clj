@@ -18,7 +18,7 @@
  tomee-cli.environment
   (:require [clojure.java.shell :refer (sh)]
             [clojure.string     :refer (split)]
-            [tomee-cli.utils    :refer (pretty-output)]
+            [tomee-cli.utils    :refer (pretty-output) :as utils]
             [environ.core       :refer (env)]))
 
 (def tomee-home (let [env-var (env :tomee-home)]
@@ -42,4 +42,4 @@
 (defn version
   "Prints version numbers of the environment elements"
   ([]     (version tomee-home))
-  ([path] (pretty-output (get (sh (str path "/bin/version" extension)) :out))))
+  ([path] (utils/pretty-output (get (sh (str path "/bin/version" extension)) :out))))
