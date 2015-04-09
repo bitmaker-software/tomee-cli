@@ -47,8 +47,11 @@
                 (.mkdirs parent))
               (with-open [out (java.io.FileOutputStream. file)
                           in  (.getInputStream zip-file zip-entry)]
-                (let [bytes (byte-array (.getSize zip-entry))]
-                  (.write out bytes 0 (.read in bytes))))))
+                (loop [bytes  (byte-array 1024)]
+                  (let [length (.read in bytes)]
+                    (when (>= length 0)
+                      (.write out bytes 0 length)
+                      (recur (byte-array 1024))))))))
           (recur (rest entries) 
                  (if (nil? location) (.getPath file) location)))))))
 
