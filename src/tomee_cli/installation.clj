@@ -65,10 +65,10 @@
                          (= (str "." (utils/filename-extension (.getName %))) env/extension))
                    files)))))
 
-(defn install-tomee [ & {:keys [dist version location]
-                         :or {dist "webprofile" version "1.7.1" location "."}}]
+(defn install-tomee [& {:keys [dist version location]
+                        :or {dist "webprofile" version "1.7.1" location "."}}]
   (grant-permission
-    (unzip-file
-      (download-file
-        (str "http://apache.belnet.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
-        (str location "/apache-tomee-" version "-" dist ".zip")))))
+   (unzip-file
+    (download-file
+     (str "http://apache.belnet.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
+     (str location "/apache-tomee-" version "-" dist ".zip")))))
