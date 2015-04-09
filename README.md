@@ -53,47 +53,69 @@ The REPL starts with all utility functions available by default in the namespace
 
 ## Usage
 
-Start server:
+### Start server:
 
     tomee-cli.core=> (start "[path-to-tomee]")    // Without TOMEE_HOME variable defined.
     tomee-cli.core=> (start)                      // With TOMEE_HOME variable defined.
 
-Stop server:
+### Stop server:
 
     tomee-cli.core=> (stop "[path-to-tomee]")     // Without TOMEE_HOME variable defined.
     tomee-cli.core=> (stop)                       // With TOMEE_HOME variable defined.
 
-Restart server:
+### Restart server:
 
     tomee-cli.core=> (restart "[path-to-tomee]")  // Without TOMEE_HOME variable defined.
     tomee-cli.core=> (restart)                    // With TOMEE_HOME variable defined.
 
-Print versions of the environment:
+### Print versions of the environment:
 
     tomee-cli.core=> (version "[path-to-tomee]")  // Without TOMEE_HOME variable defined.
     tomee-cli.core=> (version)                    // With TOMEE_HOME variable defined.
 
-Deploy application:
+### Deploy application:
 
     tomee-cli.core=> (deploy "[path-to-tomee]" "[path-to-war/ear-file]")
     tomee-cli.core=> (deploy "[path-to-war/ear-file]")
 
-Undeploy application:
+### Undeploy application:
 
     tomee-cli.core=> (undeploy "[path-to-tomee]" "[war/ear-file]")
     tomee-cli.core=> (undeploy "[war/ear-file]")
 
-Add new mail resource in tomee.xml:
+### Add new mail resource in tomee.xml:
 
-    tomee-cli.core=> (add-new-mail-resource ["[id-to-resource]" "[host-to-email-server]" "[port-to-email-server]" "[protocol-to-email-server]" "[is-auth [true/false]" "[username]" "[password]"])
-    tomee-cli.core=> (add-new-mail-resource ["[path-to-tomee]" "[id-to-resource]" "[host-to-email-server]" "[port-to-email-server]" "[protocol-to-email-server]" "[is-auth [true/false]" "[username]" "[password]"])
+    tomee-cli.core=> (add-mail-resource :path "[TOMEE_HOME]" :id "[id-to-resource]" :host "[host-to-email-server]" :port "[port-to-email-server]" :protocol "[protocol-to-email-server]" :auth "[true/false]" :user "[username]" :password "[password]")
 
+The parameters don't have ordenation. You need only specify the key, like the sample.
 
-Add new datasource in tomee.xml:
+Default values:
 
-    tomee-cli.core=> (add-new-datasource-resource ["[id-to-resource]" "[jdbc-drive]" "[jdbc-url]" "[username]" "[password]" "[jtamanaged]"])
-    tomee-cli.core=> (add-new-datasource-resource ["[path-to-tome]" "[id-to-resource]" "[jdbc-drive]" "[jdbc-url]" "[username]" "[password]" "[jtamanaged]"])
+:port = 25
 
+:password = ""
+
+:path = TOMEE\_HOME
+
+### Add new datasource in tomee.xml:
+
+    tomee-cli.core=> (add-datasource-resource :path "[TOMEE_HOME]" :id "[id-to-resource]" :jdbc-drive "[jdbc-drive]" :jdbc-url "[jdbc-url]" :username "[username]" :password "[password]" :jta-managed "[jta-managed]"])
+
+The parameters don't have ordenation. You need only specify the key, like the sample.
+
+Default values:
+
+:jdbc-drive = "org.hsqldb.jdbcDriver"
+
+:jdbc-url = "jdbc:hsqldb:file:data/hsqldb/hsqldb"
+
+:username = "sa"
+
+:password = ""
+
+:jta-managed = true.
+
+:path = TOMEE\_HOME.
 
 ## License
 

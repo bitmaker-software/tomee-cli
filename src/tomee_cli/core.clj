@@ -16,8 +16,8 @@
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>,
                Hildeberto Mendonça <hildeberto.com>"}
  tomee-cli.core
-  (:require [tomee-cli.configuration.mail-resource     :refer (add-new-mail-resource)]
-            [tomee-cli.configuration.database-resource :refer (add-new-datasource-resource)]
+  (:require [tomee-cli.configuration.mail-resource     :refer (add-mail-resource)]
+            [tomee-cli.configuration.database-resource :refer (add-datasource-resource)]
             [tomee-cli.deployment                      :refer (deploy undeploy)]
             [tomee-cli.environment                     :refer (version)]
             [tomee-cli.execution                       :refer (start stop restart)]

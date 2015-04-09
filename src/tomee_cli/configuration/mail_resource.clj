@@ -18,13 +18,15 @@
   (:require [tomee-cli.resources   :refer (add-resource xml-with-out-str define-resource) :as resource]
             [tomee-cli.environment :refer (tomee-home) :as environment]))
 
+
 (defn define-mail-resource
   "Define a mail resorce"
   [id host port protocol auth user password]
-  (let [content (str "\nmail.smtp.host=" host "\nmail.smtp.port=" port "\nmail.transport.protocol=" protocol "\nmail.smtp.auth=" auth "\nmail.smtp.user=" user "\npassword=" password "\n")]
+  (let [content (str "mail.smtp.host=" host "\nmail.smtp.port=" port "\nmail.transport.protocol=" protocol "\nmail.smtp.auth=" auth "\nmail.smtp.user=" user "\npassword=" password)]
     (resource/define-resource id "javax.mail.Session" content)))
 
-(defn add-new-mail-resource
+(defn add-mail-resource
   "Write mail resource in tomee.xml"
-  ([id host port protocol auth user password] (add-new-mail-resource environment/tomee-home id host port protocol auth user password))
-  ([path id host port protocol auth user password] (resource/add-new-resource path (define-mail-resource id host port protocol auth user password))))
+  [& {:keys [path id host port protocol auth user password]
+      :or {path environment/tomee-home password "" port 25}}]
+  (resource/add-new-resource path (define-mail-resource id host port protocol auth user password)))
