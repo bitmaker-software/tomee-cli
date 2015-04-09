@@ -19,8 +19,10 @@
             [tomee-cli.environment :refer (tomee-home) :as env]))
 
 (defn define-jms-adapter-resource
-  ([] (define-jms-adapter-resource env/tomee-home))
-  ([tomee-path] (println "Add JMS Adapter Resource")))
+  "Define a ActiveMQ Resource Adapter"
+  [id broker-xml-config server-url data-source]
+  (let [content (str "BrokerXmlConfig=" broker-xml-config "\nServerUrl=" server-url "\nDataSource=" data-source)]
+    (resource/define-resource id "ActiveMQResourceAdapter" content)))
 
 (defn define-jms-factory-resource
   ([] (define-jms-factory-resource env/tomee-home))

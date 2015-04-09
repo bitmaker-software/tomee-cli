@@ -18,11 +18,16 @@
   (:require [clojure.test :refer :all]
             [tomee-cli.configuration.jms-resource :refer :all]))
 
+(def content "BrokerXmlConfig=broker:(tcp://localhost:61616)?useJmx=false\nServerUrl=vm://localhost?async=true\nDataSource=xpto")
+(def expect {:tag :Resource :attrs {:id "SuperBizJMS" :type "ActiveMQResourceAdapter"} :content [content]})
 
-;;External ActiveMQ Broker
-
-;;Internal AciveMQ Broker
-
-;;Internal ActiveMQ Broker with JDBC Persistence
-
-;;Internal ActiveMQ Broker with activemq.xml
+(deftest define-jms-adapter-resource-test
+  (let [definition (define-jms-adapter-resource "SuperBizJMS" "broker:(tcp://localhost:61616)?useJmx=false" "vm://localhost?async=true" "xpto")]
+    (testing "Should create ActiveMQResourceAdapter type"
+      (is (= ((expect :attrs) :type) ((definition :attrs) :type))))
+    (testing "Should have an id"
+      (is (not (nil? ((expect :attrs) :id)))))
+    (testing "Should has a content"
+      (is (not (nil? (definition :content)))))
+    (testing "Should define an JMS Adapter Resource"
+      (is (= [content] (definition :content))))))
