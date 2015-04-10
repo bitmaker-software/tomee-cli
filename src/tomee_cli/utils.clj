@@ -15,16 +15,16 @@
 
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
  tomee-cli.utils
-  (:require [clojure.string  :refer (split)]))
+  (:require [clojure.string  :refer (split)]
+            [clojure.java.io :as io]))
 
-(defn pretty-output [text]
-  "Formats a text to be beautifully printed by the repl."
-  (loop [out (split text #"\n")]
-    (if (empty? out)
-      "--------------"
-      (let [to-print (first out)]
-        (println to-print)
-        (recur (rest out))))))
+(defn download-file [uri file]
+  (if (.exists (io/as-file file))
+    file
+    (with-open [in  (io/input-stream  uri)
+                out (io/output-stream file)]
+      (io/copy in out)
+      file)))
 
 (defn filename-extension [filename]
   "It receives a file name and returns the extension at the end of it. The argument
@@ -38,3 +38,12 @@
   (let [point-pos (.lastIndexOf path ".")
         bar-pos   (.lastIndexOf path "/")]
     (when-not (neg? point-pos) (.substring path (inc bar-pos)))))
+
+(defn pretty-output [text]
+  "Formats a text to be beautifully printed by the repl."
+  (loop [out (split text #"\n")]
+    (if (empty? out)
+      "--------------"
+      (let [to-print (first out)]
+        (println to-print)
+        (recur (rest out))))))

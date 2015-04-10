@@ -15,18 +15,10 @@
 
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
  tomee-cli.installation
-  (:require [clojure.java.io                                   :as io]
+  (:require [clojure.java.io                          :as io]
             [clojure.java.shell    :refer (sh)]
-            [tomee-cli.environment :refer (extension)          :as env]
-            [tomee-cli.utils       :refer (filename-extension) :as utils]))
-
-(defn download-file [uri file]
-  (if (.exists (io/as-file file))
-    file
-    (with-open [in  (io/input-stream  uri)
-                out (io/output-stream file)]
-      (io/copy in out)
-      file)))
+            [tomee-cli.environment :refer (extension) :as env]
+            [tomee-cli.utils                          :as utils]))
 
 (defn unzip-file [file]
   (let [zip-file (java.util.zip.ZipFile. file)
@@ -65,10 +57,10 @@
                          (= (str "." (utils/filename-extension (.getName %))) env/extension))
                    files)))))
 
-(defn install-tomee [& {:keys [dist version location]
-                        :or {dist "webprofile" version "1.7.1" location "."}}]
+(defn install-tomee [ & {:keys [dist version location]
+                         :or {dist "webprofile" version "1.7.1" location "."}}]
   (grant-permission
-   (unzip-file
-    (download-file
-     (str "http://apache.belnet.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
-     (str location "/apache-tomee-" version "-" dist ".zip")))))
+    (unzip-file
+      (utils/download-file
+        (str "http://apache.belnet.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
+        (str location "/apache-tomee-" version "-" dist ".zip")))))
