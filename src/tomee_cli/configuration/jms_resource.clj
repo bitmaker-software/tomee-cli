@@ -56,12 +56,12 @@
 
 (defn add-jms-queue-resource
   "Add new JMS Queue Resource in tomee.xml"
-  [& {:keys [path destination]
+  [& {:keys [path id destination]
       :or [destination "" path env/tomee-home]}]
   (resource/add-new-resource path (define-jms-queue-resource id destination)))
 
 (defn add-jms-topic-resource
   "Add new JMS Topic Resource in tomee.xml"
-  [& {:keys [path destination]
+  [& {:keys [path id destination]
       :or [destination "" path env/tomee-home]}]
   (resource/add-new-resource path (define-jms-topic-resource id destination)))
