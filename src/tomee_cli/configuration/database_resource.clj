@@ -15,7 +15,7 @@
 
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
  tomee-cli.configuration.database-resource
-  (:require [tomee-cli.resources   :refer (add-resource xml-with-out-str define-resource) :as resource]
+  (:require [tomee-cli.resources   :refer (add-new-resource xml-with-out-str define-resource) :as resource]
             [tomee-cli.environment :refer (tomee-home) :as environment]))
 
 (defn define-datasource-resource

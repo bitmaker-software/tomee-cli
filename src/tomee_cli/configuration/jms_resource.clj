@@ -15,7 +15,7 @@
 
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
  tomee-cli.configuration.jms-resource
-  (:require [tomee-cli.resources   :refer (add-resource xml-with-out-str define-resource) :as resource]
+  (:require [tomee-cli.resources   :refer (add-new-resource xml-with-out-str define-resource) :as resource]
             [tomee-cli.environment :refer (tomee-home) :as env]))
 
 (defn define-jms-adapter-resource
@@ -41,3 +41,27 @@
   [id destination]
   (let [content (str "destination=" destination)]
     (resource/define-resource id "javax.jms.Topic" content)))
+
+(defn add-jms-adapter-resource
+  "Add new JMS Adapter Resource in tomee.xml"
+  [& {:keys [path id broker-xml server-url data-source]
+      :or [broker-xml "broker:(tcp://localhost:61616)?useJmx=false" server-url "vm://localhost?async=true" data-source "" path env/tomee-home]}]
+  (resource/add-new-resource path (define-jms-adapter-resource id broker-xml server-url data-source)))
+
+(defn add-jms-factory-resource
+  "Add new JMS Factory Resource in tomee.xml"
+  [& {:keys [path id resource-adapter transaction-support pool-max-size pool-min-size connection-max-wait connection-max-idle]
+      :or [transaction-support "xa" pool-max-size 10 pool-min-size 0 connection-max-wait 5000 connection-max-idle 15 path env/tomee-home]}]
+  (resource/add-new-resource path (define-jms-factory-resource id resource-adapter transaction-support pool-max-size pool-min-size connection-max-wait connection-max-idle)))
+
+(defn add-jms-queue-resource
+  "Add new JMS Queue Resource in tomee.xml"
+  [& {:keys [path destination]
+      :or [destination "" path env/tomee-home]}]
+  (resource/add-new-resource path (define-jms-queue-resource id destination)))
+
+(defn add-jms-topic-resource
+  "Add new JMS Topic Resource in tomee.xml"
+  [& {:keys [path destination]
+      :or [destination "" path env/tomee-home]}]
+  (resource/add-new-resource path (define-jms-topic-resource id destination)))
