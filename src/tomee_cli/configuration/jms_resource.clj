@@ -25,8 +25,10 @@
     (resource/define-resource id "ActiveMQResourceAdapter" content)))
 
 (defn define-jms-factory-resource
-  ([] (define-jms-factory-resource env/tomee-home))
-  ([tomee-path] (println "Add JMS Factory Resource")))
+  "Define JMS Factory Resource"
+  [id resource-adapter transaction-support pool-max-size pool-min-size connection-max-wait connection-max-idle]
+  (let [content (str "ResourceAdapter=" resource-adapter "\nTransactionSupport=" transaction-support "\nPoolMaxSize=" pool-max-size "\nPoolMinSize=" pool-min-size "\nConnectionMaxWaitMilliseconds=" connection-max-wait "\nConnectionMaxIdleMinutes=" connection-max-idle )]
+    (resource/define-resource id "javax.jms.ConnectionFactory" content)))
 
 (defn define-jms-container-resource
   ([] (define-jms-container-resource env/tomee-home))
