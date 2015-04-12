@@ -30,14 +30,14 @@
   (let [content (str "ResourceAdapter=" resource-adapter "\nTransactionSupport=" transaction-support "\nPoolMaxSize=" pool-max-size "\nPoolMinSize=" pool-min-size "\nConnectionMaxWaitMilliseconds=" connection-max-wait "\nConnectionMaxIdleMinutes=" connection-max-idle )]
     (resource/define-resource id "javax.jms.ConnectionFactory" content)))
 
-(defn define-jms-container-resource
-  ([] (define-jms-container-resource env/tomee-home))
-  ([tomee-path] (println "Add JMS Container Resource")))
-
 (defn define-jms-queue-resource
-  ([] (define-jms-queue-resource env/tomee-home))
-  ([tomee-path] (println "Add JMS Queue Resource")))
+  "Define JMS Queue"
+  [id destination]
+  (let [content (str "destination=" destination)]
+    (resource/define-resource id "javax.jms.Queue" content)))
 
 (defn define-jms-topic-resource
-  ([] (define-jms-topic-resource env/tomee-home))
-  ([tomee-path] (println "Add JMS Topic Resource")))
+  "Define JMS Topic"
+  [id destination]
+  (let [content (str "destination=" destination)]
+    (resource/define-resource id "javax.jms.Topic" content)))

@@ -29,7 +29,7 @@
       (is (not (nil? ((expect-adapter :attrs) :id)))))
     (testing "Should has a content"
       (is (not (nil? (definition :content)))))
-    (testing "Should define an JMS Adapter Resource"
+    (testing "Should define a JMS Adapter Resource"
       (is (= [content-adapter] (definition :content))))))
 
 
@@ -44,5 +44,34 @@
       (is (not (nil? ((expect-factory :attrs) :id)))))
     (testing "Should has a content"
       (is (not (nil? (definition :content)))))
-    (testing "Should define an JMS Factory Resource"
+    (testing "Should define a JMS Factory Resource"
       (is (= [content-factory] (definition :content))))))
+
+
+(def content-queue "destination=superBizQueue")
+(def expect-queue {:tag :Resource :attrs {:id "SuperBizQueue" :type "javax.jms.Queue"} :content [content-queue]})
+
+(deftest define-jms-factory-resource-test
+  (let [definition (define-jms-queue-resource "SuperBizQueue" "superBizQueue")]
+    (testing "Should create Queue type"
+      (is (= ((expect-queue :attrs) :type) ((definition :attrs) :type))))
+    (testing "Should have an id"
+      (is (not (nil? ((expect-queue :attrs) :id)))))
+    (testing "Should has a content"
+      (is (not (nil? (definition :content)))))
+    (testing "Should define a Queue Resource"
+      (is (= [content-queue] (definition :content))))))
+
+(def content-topic "destination=superBizTopic")
+(def expect-topic {:tag :Resource :attrs {:id "SuperBizTopic" :type "javax.jms.Topic"} :content [content-topic]})
+
+(deftest define-jms-factory-resource-test
+  (let [definition (define-jms-topic-resource "SuperBizTopic" "superBizTopic")]
+    (testing "Should create Topic type"
+      (is (= ((expect-topic :attrs) :type) ((definition :attrs) :type))))
+    (testing "Should have an id"
+      (is (not (nil? ((expect-queue :attrs) :id)))))
+    (testing "Should has a content"
+      (is (not (nil? (definition :content)))))
+    (testing "Should define a Topic Resource"
+      (is (= [content-topic] (definition :content))))))
