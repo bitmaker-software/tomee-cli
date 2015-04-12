@@ -13,7 +13,7 @@
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
 
-(defproject com.bitmaker-software/tomee-cli "0.1.0-SNAPSHOT"
+(defproject com.bitmaker-software/tomee-cli "0.1.0"
   :description "The fast way to configure Apache TomEE"
   :url "https://github.com/bitmaker-software/tomee-cli"
   :scm {:name "git"
@@ -26,7 +26,9 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [environ "1.0.0"]]
   :plugins [[lein-cljfmt "0.1.10"]
-            [lein-environ "1.0.0"]]
+            [lein-environ "1.0.0"]
+            [lein-release "1.0.5"]]
+  :lein-release {:scm :git}
   :main ^:skip-aot tomee-cli.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
