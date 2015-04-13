@@ -53,6 +53,17 @@ The REPL starts with all utility functions available by default in the namespace
 
 ## Usage
 
+### Install TomEE
+
+    // Install the latest version of TomEE web profile in the working directory.
+    (install-tomee)
+
+    // Install the latest version of TomEE Plus in the working directory.
+    (install-tomee :dist "plus")
+
+    // Install the version 1.7 of TomEE Plus in the path /opt.
+    (install-tomee :version "1.7" :dist "plus" :location "/opt")
+
 ### Start server:
 
     tomee-cli.core=> (start "[path-to-tomee]")    // Without TOMEE_HOME variable defined.
