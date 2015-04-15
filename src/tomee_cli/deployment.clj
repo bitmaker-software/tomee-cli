@@ -17,7 +17,8 @@
  tomee-cli.deployment
   (:require [clojure.java.io       :refer (as-file copy file delete-file) :as io]
             [tomee-cli.environment :refer (tomee-home) :as env]
-            [tomee-cli.utils       :refer (filename-extension filename-from-path) :as utils]))
+            [tomee-cli.utils       :refer (filename-extension filename-from-path) :as utils])
+  (:gen-class))
 
 (defn copy-file [source-path dest-path]
   (io/copy (io/file source-path) (io/file dest-path)))

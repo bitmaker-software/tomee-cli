@@ -17,7 +17,8 @@
  tomee-cli.resources
   (:require [clojure.xml           :refer (parse)   :as xml]
             [clojure.java.io       :refer (as-file) :as io]
-            [tomee-cli.environment :refer (tomee-xml-path) :as environment]))
+            [tomee-cli.environment :refer (tomee-xml-path) :as environment])
+  (:gen-class))
 
 (defn parse-xml
   [path]

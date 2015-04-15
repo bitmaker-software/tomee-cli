@@ -19,7 +19,8 @@
   (:require [clojure.java.shell :refer (sh)]
             [clojure.string     :refer (split)]
             [tomee-cli.utils    :refer (pretty-output) :as utils]
-            [environ.core       :refer (env)]))
+            [environ.core       :refer (env)])
+  (:gen-class))
 
 (def tomee-home (let [env-var (env :tomee-home)]
                   (if (nil? env-var) "." env-var)))

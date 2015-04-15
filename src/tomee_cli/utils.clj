@@ -16,7 +16,8 @@
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
  tomee-cli.utils
   (:require [clojure.string  :refer (split)]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io])
+  (:gen-class))
 
 (defn download-file [uri file]
   (if (.exists (io/as-file file))

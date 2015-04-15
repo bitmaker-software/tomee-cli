@@ -16,7 +16,8 @@
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
  tomee-cli.configuration.jms-resource
   (:require [tomee-cli.resources   :refer (add-new-resource xml-with-out-str define-resource) :as resource]
-            [tomee-cli.environment :refer (tomee-home) :as env]))
+            [tomee-cli.environment :refer (tomee-home) :as env])
+  (:gen-class))
 
 (defn define-jms-adapter-resource
   "Define a ActiveMQ Resource Adapter"

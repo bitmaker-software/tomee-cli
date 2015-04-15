@@ -17,7 +17,8 @@
                Hildeberto Mendonça <hildeberto.com>"}
  tomee-cli.execution
   (:require [clojure.java.shell    :refer (sh)]
-            [tomee-cli.environment :refer (tomee-home extension) :as env]))
+            [tomee-cli.environment :refer (tomee-home extension) :as env])
+  (:gen-class))
 
 (defn start
   "Startup the Apache TomEE Server"

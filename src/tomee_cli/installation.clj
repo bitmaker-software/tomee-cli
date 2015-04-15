@@ -18,7 +18,8 @@
   (:require [clojure.java.io                          :as io]
             [clojure.java.shell    :refer (sh)]
             [tomee-cli.environment :refer (extension) :as env]
-            [tomee-cli.utils                          :as utils]))
+            [tomee-cli.utils                          :as utils])
+  (:gen-class))
 
 (defn unzip-file [file]
   (let [zip-file (java.util.zip.ZipFile. file)
@@ -31,7 +32,6 @@
               file-name (.getName zip-entry)
               file      (io/as-file file-name)
               parent    (.getParentFile file)]
-          
           (if (.endsWith file-name "/")
             (.mkdirs file)
             (do
