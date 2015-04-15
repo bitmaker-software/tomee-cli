@@ -24,7 +24,8 @@
             :version "2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0"}
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [environ "1.0.0"]]
+                 [environ "1.0.0"]
+                 [midje "1.6.3"]]
   :plugins [[lein-cljfmt "0.1.10"]
             [lein-environ "1.0.0"]
             [lein-release "1.0.5"]]
