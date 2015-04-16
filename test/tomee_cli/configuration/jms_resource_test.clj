@@ -16,7 +16,6 @@
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com"}
  tomee-cli.configuration.jms-resource-test
   (:require [midje.sweet :refer :all]
-            [clojure.test :refer :all]
             [tomee-cli.configuration.jms-resource :refer :all]))
 
 (fact "Should define a JMS Resource Adapter"
