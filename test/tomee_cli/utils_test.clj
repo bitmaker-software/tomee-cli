@@ -13,27 +13,28 @@
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
 
-(ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
+(ns ^{:author "Hildeberto Mendonça <hildeberto.com>"
+              "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
  tomee-cli.utils-test
   (:require [midje.sweet     :refer :all]
             [tomee-cli.utils :refer :all]))
 
-(fact "Should not found file extension"
+(fact "Should not find file extension"
       (nil? (filename-extension "")) => true
       (nil? (filename-extension "tomee")) => true)
 
-(fact "Should found file extension"
+(fact "Should find file extension"
       (filename-extension "tomee.xml") => "xml"
       (filename-extension "tomee-1.7.1.zip") => "zip")
 
 (fact "Should return extension in lower case"
       (filename-extension "tomee.XML") => "xml")
 
-(fact "Should not found file by name"
+(fact "Should not find file withot extension"
       (nil? (filename-from-path "")) => true
       (nil? (filename-from-path "tomee")) => true
       (nil? (filename-from-path "resources/conf/tomee")) => true)
 
-(fact "Should found file by name"
+(fact "Should find file with except"
       (filename-from-path "tomee.xml") => "tomee.xml"
       (filename-from-path "resources/conf/tomee.xml") => "tomee.xml")
