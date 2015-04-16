@@ -13,8 +13,8 @@
 ;;See the License for the specific language governing permissions and
 ;;limitations under the License.
 
-(ns ^{:author "Hildeberto Mendonça <hildeberto.com>"
-              "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
+(ns ^{:author "Hildeberto Mendonça <hildeberto.com>,
+               Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
  tomee-cli.utils-test
   (:require [midje.sweet     :refer :all]
             [tomee-cli.utils :refer :all]))
