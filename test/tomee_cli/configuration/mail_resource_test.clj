@@ -16,37 +16,20 @@
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com>"}
  tomee-cli.configuration.mail-resource-test
   (:require [clojure.test                          :refer :all]
+            [midje.sweet                           :refer :all]
             [tomee-cli.configuration.mail-resource :refer :all]))
 
-(def expect {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.mail.Session"} :content ["mail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456"]})
-(def expect-new-tomee-xml "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n</Resource>\n</tomee>\n")
-(def expect-new-tomee-xml-with-resource "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\n\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n\n</Resource>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n</Resource>\n</tomee>\n")
+(background (after :facts (spit "resources/conf/tomee.xml" "<?xml version='1.0' encoding='UTF-8'?>\n<tomee/>")))
 
-(defn before [])
+(fact "Should define a mail resource"
+      (let [midje ""
+            expect {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.mail.Session"} :content ["mail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456"]}]
+       (define-mail-resource "SuperbizMail" "tomee.apache.org" 25 "smtp" true "email@apache.org" 123456) => expect))
 
-(defn after []
-  (spit "resources/conf/tomee.xml" "<?xml version='1.0' encoding='UTF-8'?>\n<tomee/>"))
+(fact "Should add new mail resource in tomee.xml without TOMEE_HOME env"
+      (let [expect-new-tomee-xml "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n</Resource>\n</tomee>\n"]
+      (add-mail-resource :path "resources" :id "SuperbizMail" :host "tomee.apache.org" :protocol "smtp" :auth true :user "email@apache.org" :password 123456) => expect-new-tomee-xml))
 
-(defn each-fixture [f]
-  (before)
-  (f)
-  (after))
-
-(use-fixtures :each each-fixture)
-
-(deftest define-mail-resource-test
-  (testing "Should create mail resource"
-    (is (= expect (define-mail-resource "SuperbizMail" "tomee.apache.org" 25 "smtp" true "email@apache.org" 123456)))))
-
-(deftest add-mail-resource-test
-  (testing "Should add new mail resource in tomee.xml without TOMEE_HOME env"
-    (is (= expect-new-tomee-xml (add-mail-resource :path "resources" :id "SuperbizMail" :host "tomee.apache.org" :protocol "smtp" :auth true :user "email@apache.org" :password 123456)))))
-
-(deftest add-mail-resource-with-env-test
-  (testing "Should add new mail resource in tomee.xml with TOMEE_HOME env"
-    (is (= expect-new-tomee-xml (add-mail-resource :id "SuperbizMail" :host "tomee.apache.org" :protocol "smtp" :auth true :user "email@apache.org" :password 123456)))))
-
-(deftest add-mail-resource-in-tomee-with-resource-test
-  (testing "Should not replace resources/conf/tomee.xml with resource"
-    (spit "resources/conf/tomee.xml" expect-new-tomee-xml)
-    (is (= expect-new-tomee-xml-with-resource (add-mail-resource :id "SuperbizMail" :host "tomee.apache.org" :protocol "smtp" :auth true :user "email@apache.org" :password 123456)))))
+(fact "Should add new mail resource in tomee.xml with TOMEE_HOME env"
+      (let [expect-new-tomee-xml "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n</Resource>\n</tomee>\n"]
+        (add-mail-resource :id "SuperbizMail" :host "tomee.apache.org" :protocol "smtp" :auth true :user "email@apache.org" :password 123456) => expect-new-tomee-xml))
