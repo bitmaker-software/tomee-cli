@@ -35,6 +35,6 @@
       (nil? (filename-from-path "tomee")) => true
       (nil? (filename-from-path "resources/conf/tomee")) => true)
 
-(fact "Should find file with except"
+(fact "Should find file with extension"
       (filename-from-path "tomee.xml") => "tomee.xml"
       (filename-from-path "resources/conf/tomee.xml") => "tomee.xml")
