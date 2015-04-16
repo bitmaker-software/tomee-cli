@@ -15,24 +15,25 @@
 
 (ns ^{:author "Hildeberto Mendonça <hildeberto.com>"}
  tomee-cli.utils-test
-  (:require [clojure.test    :refer :all]
+  (:require [midje.sweet     :refer :all]
             [tomee-cli.utils :refer :all]))
 
-(deftest filename-extension-test
-  (testing "Testing file extension not found"
-    (is (nil? (filename-extension "")))
-    (is (nil? (filename-extension "tomee"))))
-  (testing "Testing file extension found"
-    (is (= "xml" (filename-extension "tomee.xml")))
-    (is (= "zip" (filename-extension "tomee-1.7.1.zip"))))
-  (testing "Testing lower case"
-    (is (= "xml" (filename-extension "tomee.XML")))))
+(fact "Should not found file extension"
+      (nil? (filename-extension "")) => true
+      (nil? (filename-extension "tomee")) => true)
 
-(deftest filename-from-path-test
-  (testing "Testing file name not found"
-    (is (nil? (filename-from-path "")))
-    (is (nil? (filename-from-path "tomee")))
-    (is (nil? (filename-from-path "resources/conf/tomee"))))
-  (testing "Testing file name found"
-    (is (= "tomee.xml" (filename-from-path "tomee.xml")))
-    (is (= "tomee.xml" (filename-from-path "resources/conf/tomee.xml")))))
+(fact "Should found file extension"
+      (filename-extension "tomee.xml") => "xml"
+      (filename-extension "tomee-1.7.1.zip") => "zip")
+
+(fact "Should return extension in lower case"
+      (filename-extension "tomee.XML") => "xml")
+
+(fact "Should not found file by name"
+      (nil? (filename-from-path "")) => true
+      (nil? (filename-from-path "tomee")) => true
+      (nil? (filename-from-path "resources/conf/tomee")) => true)
+
+(fact "Should found file by name"
+      (filename-from-path "tomee.xml") => "tomee.xml"
+      (filename-from-path "resources/conf/tomee.xml") => "tomee.xml")
