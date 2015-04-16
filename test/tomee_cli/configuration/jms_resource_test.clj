@@ -15,63 +15,54 @@
 
 (ns ^{:author "Daniel Cunha (soro) <daniel.cunha@bitmaker-software.com"}
  tomee-cli.configuration.jms-resource-test
-  (:require [clojure.test :refer :all]
+  (:require [midje.sweet :refer :all]
+            [clojure.test :refer :all]
             [tomee-cli.configuration.jms-resource :refer :all]))
 
-(def content-adapter "BrokerXmlConfig=broker:(tcp://localhost:61616)?useJmx=false\nServerUrl=vm://localhost?async=true\nDataSource=xpto")
-(def expect-adapter {:tag :Resource :attrs {:id "SuperBizJMSAdapter" :type "ActiveMQResourceAdapter"} :content [content-adapter]})
+(fact "Should define a JMS Resource Adapter"
+      (let [content-adapter "BrokerXmlConfig=broker:(tcp://localhost:61616)?useJmx=false\nServerUrl=vm://localhost?async=true\nDataSource=xpto"
+            expect-adapter {:tag :Resource :attrs {:id "SuperBizJMSAdapter" :type "ActiveMQResourceAdapter"} :content [content-adapter]}
+            definition (define-jms-adapter-resource "SuperBizJMSAdapter" "broker:(tcp://localhost:61616)?useJmx=false" "vm://localhost?async=true" "xpto")]
+        (nil? ((expect-adapter :attrs) :type)) => false
+        ((expect-adapter :attrs) :type) => ((definition :attrs) :type)
+        ((expect-adapter :attrs) :type) => "ActiveMQResourceAdapter"
+        (nil? ((expect-adapter :attrs) :id)) => false
+        ((expect-adapter :attrs) :id) => "SuperBizJMSAdapter"
+        (nil? (definition :content)) => false
+        [content-adapter] => (definition :content)))
 
-(deftest define-jms-adapter-resource-test
-  (let [definition (define-jms-adapter-resource "SuperBizJMSAdapter" "broker:(tcp://localhost:61616)?useJmx=false" "vm://localhost?async=true" "xpto")]
-    (testing "Should create ActiveMQResourceAdapter type"
-      (is (= ((expect-adapter :attrs) :type) ((definition :attrs) :type))))
-    (testing "Should have an id"
-      (is (not (nil? ((expect-adapter :attrs) :id)))))
-    (testing "Should has a content"
-      (is (not (nil? (definition :content)))))
-    (testing "Should define a JMS Adapter Resource"
-      (is (= [content-adapter] (definition :content))))))
+(fact "Should define a JMS Resource Factory"
+      (let [content-factory "ResourceAdapter=SuperBizJMSAdapter\nTransactionSupport=xa\nPoolMaxSize=10\nPoolMinSize=0\nConnectionMaxWaitMilliseconds=5000\nConnectionMaxIdleMinutes=15"
+            expect-factory {:tag :Resource :attrs {:id "SuperBizFactory" :type "javax.jms.ConnectionFactory"} :content [content-factory]}
+            definition (define-jms-factory-resource "SuperBizJMSFactory" "SuperBizJMSAdapter" "xa" 10 0 5000 15)]
+        (nil? ((expect-factory :attrs) :type)) => false
+        ((expect-factory :attrs) :type) => ((definition :attrs) :type)
+        ((expect-factory :attrs) :type) => "javax.jms.ConnectionFactory"
+        (nil? ((expect-factory :attrs) :id)) => false
+        ((expect-factory :attrs) :id) => "SuperBizJMSFactory"
+        (nil? (definition :content)) => false
+        [content-factory] => (definition :content)))
 
+(fact "Should define a JMS Resource Factory"
+      (let [content-queue "destination=superBizQueue"
+            expect-queue {:tag :Resource :attrs {:id "SuperBizQueue" :type "javax.jms.Queue"} :content [content-queue]}
+            definition (define-jms-queue-resource "SuperBizQueue" "superBizQueue")]
+        (nil? ((expect-queue :attrs) :type)) => false
+        ((expect-queue :attrs) :type) => ((definition :attrs) :type)
+        ((expect-queue :attrs) :type) => "javax.jms.ConnectionFactory"
+        (nil? ((expect-queue :attrs) :id)) => false
+        ((expect-queue :attrs) :id) => "SuperBizJMSFactory"
+        (nil? (definition :content)) => false
+        [content-queue] => (definition :content)))
 
-(def content-factory "ResourceAdapter=SuperBizJMSAdapter\nTransactionSupport=xa\nPoolMaxSize=10\nPoolMinSize=0\nConnectionMaxWaitMilliseconds=5000\nConnectionMaxIdleMinutes=15")
-(def expect-factory {:tag :Resource :attrs {:id "SuperBizFactory" :type "javax.jms.ConnectionFactory"} :content [content-factory]})
-
-(deftest define-jms-factory-resource-test
-  (let [definition (define-jms-factory-resource "SuperBizJMSFactory" "SuperBizJMSAdapter" "xa" 10 0 5000 15)]
-    (testing "Should create Connection Factory type"
-      (is (= ((expect-factory :attrs) :type) ((definition :attrs) :type))))
-    (testing "Should have an id"
-      (is (not (nil? ((expect-factory :attrs) :id)))))
-    (testing "Should has a content"
-      (is (not (nil? (definition :content)))))
-    (testing "Should define a JMS Factory Resource"
-      (is (= [content-factory] (definition :content))))))
-
-
-(def content-queue "destination=superBizQueue")
-(def expect-queue {:tag :Resource :attrs {:id "SuperBizQueue" :type "javax.jms.Queue"} :content [content-queue]})
-
-(deftest define-jms-factory-resource-test
-  (let [definition (define-jms-queue-resource "SuperBizQueue" "superBizQueue")]
-    (testing "Should create Queue type"
-      (is (= ((expect-queue :attrs) :type) ((definition :attrs) :type))))
-    (testing "Should have an id"
-      (is (not (nil? ((expect-queue :attrs) :id)))))
-    (testing "Should has a content"
-      (is (not (nil? (definition :content)))))
-    (testing "Should define a Queue Resource"
-      (is (= [content-queue] (definition :content))))))
-
-(def content-topic "destination=superBizTopic")
-(def expect-topic {:tag :Resource :attrs {:id "SuperBizTopic" :type "javax.jms.Topic"} :content [content-topic]})
-
-(deftest define-jms-factory-resource-test
-  (let [definition (define-jms-topic-resource "SuperBizTopic" "superBizTopic")]
-    (testing "Should create Topic type"
-      (is (= ((expect-topic :attrs) :type) ((definition :attrs) :type))))
-    (testing "Should have an id"
-      (is (not (nil? ((expect-queue :attrs) :id)))))
-    (testing "Should has a content"
-      (is (not (nil? (definition :content)))))
-    (testing "Should define a Topic Resource"
-      (is (= [content-topic] (definition :content))))))
+(fact "Should define a JMS Resource Factory"
+      (let [content-topic "destination=superBizTopic"
+            expect-topic {:tag :Resource :attrs {:id "SuperBizTopic" :type "javax.jms.Topic"} :content [content-topic]}
+            definition (define-jms-topic-resource "SuperBizTopic" "superBizTopic")]
+        (nil? ((expect-topic :attrs) :type)) => false
+        ((expect-topic :attrs) :type) => ((definition :attrs) :type)
+        ((expect-topic :attrs) :type) => "javax.jms.ConnectionFactory"
+        (nil? ((expect-topic :attrs) :id)) => false
+        ((expect-topic :attrs) :id) => "SuperBizJMSFactory"
+        (nil? (definition :content)) => false
+        [content-topic] => (definition :content)))
