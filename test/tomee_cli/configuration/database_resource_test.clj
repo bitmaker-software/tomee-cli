@@ -22,15 +22,15 @@
 
 (fact "Should create database resource"
       (let [midej ""
-       expect {:tag :Resource :attrs {:id "SuperBizDataSource" :type "javax.sql.DataSource"} :content ["jdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true"]}]
-       (define-datasource-resource "SuperBizDataSource" "com.mysql.Jdbc.Driver" "jdbc:mysql://localhost/db" "soro" 123456 true) => expect))
+            expect {:tag :Resource :attrs {:id "SuperBizDataSource" :type "javax.sql.DataSource"} :content ["jdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true"]}]
+        (define-datasource-resource "SuperBizDataSource" "com.mysql.Jdbc.Driver" "jdbc:mysql://localhost/db" "soro" 123456 true) => expect))
 
 (fact "Should add new database resource in tomee.xml without TOMEE_HOME env"
-    (let [midje ""
-          expect "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperBizDataSource' type='javax.sql.DataSource'>\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n</Resource>\n</tomee>\n"]
-      (add-datasource-resource :id "SuperBizDataSource" :jdbc-drive "com.mysql.Jdbc.Driver" :jdbc-url "jdbc:mysql://localhost/db" :username "soro" :password 123456) => expect))
+      (let [midje ""
+            expect "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperBizDataSource' type='javax.sql.DataSource'>\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n</Resource>\n</tomee>\n"]
+        (add-datasource-resource :id "SuperBizDataSource" :jdbc-drive "com.mysql.Jdbc.Driver" :jdbc-url "jdbc:mysql://localhost/db" :username "soro" :password 123456) => expect))
 
 (fact "Should add new database resource in tomee.xml with TOMEE_HOME env"
-    (let [midje ""
-          expect "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperBizDataSource' type='javax.sql.DataSource'>\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n</Resource>\n</tomee>\n"]
-      (add-datasource-resource :path "resources" :id "SuperBizDataSource" :jdbc-drive "com.mysql.Jdbc.Driver" :jdbc-url "jdbc:mysql://localhost/db" :username "soro" :password 123456) => expect))
+      (let [midje ""
+            expect "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperBizDataSource' type='javax.sql.DataSource'>\njdbcDriver=com.mysql.Jdbc.Driver\njdbcUrl=jdbc:mysql://localhost/db\nusername=soro\npassword=123456\nJtaManaged=true\n</Resource>\n</tomee>\n"]
+        (add-datasource-resource :path "resources" :id "SuperBizDataSource" :jdbc-drive "com.mysql.Jdbc.Driver" :jdbc-url "jdbc:mysql://localhost/db" :username "soro" :password 123456) => expect))
