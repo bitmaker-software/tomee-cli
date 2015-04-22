@@ -29,7 +29,8 @@
   :plugins [[lein-cljfmt "0.1.10"]
             [lein-environ "1.0.0"]
             [lein-release "1.0.5"]
-            [lein-midje "3.1.3"]]
+            [lein-midje "3.1.3"]
+            [lein-cloverage "1.0.2"]]
   :lein-release {:scm :git
                  :deploy-via :lein-install}
   :main ^:skip-aot tomee-cli.core

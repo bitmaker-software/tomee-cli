@@ -5,6 +5,8 @@ jdk:
   - oraclejdk8
 env: TOMEE_HOME=resources
 script: lein do cljfmt check, midje
+after_script:
+  - bash -ex test/coveralls.sh
 notifications:
     slack: bitmaker:1KC4HkuyKvjvxcPAFi1qaDQj
     webhooks:

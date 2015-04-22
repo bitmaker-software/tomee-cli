@@ -22,13 +22,11 @@
 
 (fact "Should define a mail resource"
       (let [midje ""
-            expect {:tag :Resource :attrs {:id "SuperbizMail" :type "javax.mail.Session"} :content ["mail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456"]}]
-        (define-mail-resource "SuperbizMail" "tomee.apache.org" 25 "smtp" true "email@apache.org" 123456) => expect))
-
-(fact "Should add new mail resource in tomee.xml without TOMEE_HOME env"
-      (let [expect-new-tomee-xml "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n</Resource>\n</tomee>\n"]
-        (add-mail-resource :path "resources" :id "SuperbizMail" :host "tomee.apache.org" :protocol "smtp" :auth true :user "email@apache.org" :password 123456) => expect-new-tomee-xml))
-
-(fact "Should add new mail resource in tomee.xml with TOMEE_HOME env"
-      (let [expect-new-tomee-xml "<?xml version='1.0' encoding='UTF-8'?>\n<tomee>\n<Resource id='SuperbizMail' type='javax.mail.Session'>\nmail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456\n</Resource>\n</tomee>\n"]
-        (add-mail-resource :id "SuperbizMail" :host "tomee.apache.org" :protocol "smtp" :auth true :user "email@apache.org" :password 123456) => expect-new-tomee-xml))
+            content "mail.smtp.host=tomee.apache.org\nmail.smtp.port=25\nmail.transport.protocol=smtp\nmail.smtp.auth=true\nmail.smtp.user=email@apache.org\npassword=123456"
+            definition (define-mail-resource "SuperbizMail" "tomee.apache.org" 25 "smtp" true "email@apache.org" 123456)]
+        (nil? ((definition :attrs) :type)) => false
+        ((definition :attrs) :type) => "javax.mail.Session"
+        (nil? ((definition :attrs) :id)) => false
+        ((definition :attrs) :id) => "SuperbizMail"
+        (nil? (definition :content)) => false
+        (definition :content) => [content]))
