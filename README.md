@@ -134,3 +134,7 @@ Default values:
 Copyright 2015 Bitmaker Software LDA and/or its affiliates and other contributors as indicated by the @authors tag. All rights reserved.
 
 Distributed under the Apache License V2.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bitmaker-software/tomee-cli/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
