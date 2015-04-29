@@ -24,17 +24,18 @@
             :version "2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0"}
   :dependencies [[org.clojure/clojure "1.6.0"]
+                 [org.clojure/tools.cli "0.3.1"]
                  [environ "1.0.0"]
                  [midje "1.6.3"]]
   :plugins [[lein-cljfmt "0.1.10"]
             [lein-environ "1.0.0"]
-            [lein-release "1.0.5"]
+            [lein-release "1.1.3"]
             [lein-midje "3.1.3"]
-            [lein-cloverage "1.0.2"]]
+            [lein-cloverage "1.0.3"]]
   :lein-release {:scm :git
                  :deploy-via :lein-install}
   :main ^:skip-aot tomee-cli.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
              :test {:env {:tomee-home "resources"}}
-             :dev {:plugins [[lein-kibit "0.0.8"]] }})
+             :dev {:plugins [[lein-kibit "0.1.2"]] }})
