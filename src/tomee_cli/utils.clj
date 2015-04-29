@@ -27,6 +27,12 @@
       (io/copy in out)
       file)))
 
+(defn fetch-uri [uri]
+  (with-open [stream (.openStream (java.net.URL. uri))]
+    (let  [buf (java.io.BufferedReader.
+                (java.io.InputStreamReader. stream))]
+      (apply str (line-seq buf)))))
+
 (defn filename-extension [filename]
   "It receives a file name and returns the extension at the end of it. The argument
    could be a full path as long as it finishes with the file name. It returns null

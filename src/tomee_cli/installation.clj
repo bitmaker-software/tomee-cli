@@ -21,6 +21,15 @@
             [tomee-cli.utils                          :as utils])
   (:gen-class))
 
+(def default-dist     "webprofile")
+(def default-version  "1.7.1")
+(def default-location ".")
+
+
+(defn discover-download-uri [& {:keys [dist version]
+                                          :or {dist default-dist version default-version}}]
+  (utils/fetch-uri (str "http://www.apache.org/dyn/closer.cgi/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")))
+
 (defn unzip-file [file]
   (let [zip-file (java.util.zip.ZipFile. file)
         enum (enumeration-seq (.entries zip-file))]
@@ -44,7 +53,7 @@
                     (when (>= length 0)
                       (.write out bytes 0 length)
                       (recur (byte-array 1024))))))))
-          (recur (rest entries) 
+          (recur (rest entries)
                  (if (nil? location) (.getPath file) location)))))))
 
 (defn grant-permission [location-install]
@@ -58,7 +67,7 @@
                    files)))))
 
 (defn install-tomee [& {:keys [dist version location]
-                        :or {dist "webprofile" version "1.7.1" location "."}}]
+                        :or {dist default-dist version default-version location default-location}}]
   (grant-permission
    (unzip-file
     (utils/download-file
