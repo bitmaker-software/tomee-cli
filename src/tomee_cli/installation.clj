@@ -25,10 +25,20 @@
 (def default-version  "1.7.1")
 (def default-location ".")
 
-
 (defn discover-download-uri [& {:keys [dist version]
-                                          :or {dist default-dist version default-version}}]
-  (utils/fetch-uri (str "http://www.apache.org/dyn/closer.cgi/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")))
+                                :or {dist default-dist version default-version}}]
+  (let [content     (utils/fetch-uri (str "http://www.apache.org/dyn/closer.cgi/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip"))
+        pos-version (.indexOf content version)]
+    (loop [link      version
+           pos-left  (dec pos-version)
+           pos-right (+ pos-version (.length version))]
+      (if (.contains link "\"")
+        link
+        (let [char-left  (.charAt content pos-left)
+              char-right (.charAt content pos-right)]
+          (recur (str (if (= char-left "\"") "" char-left) link (if (= char-right "\"") "" char-right))
+                 (if (= char-left "\"")  pos-left  (dec pos-left))
+                 (if (= char-right "\"") pos-right (inc pos-right))))))))
 
 (defn unzip-file [file]
   (let [zip-file (java.util.zip.ZipFile. file)
