@@ -32,13 +32,15 @@
     (loop [link      version
            pos-left  (dec pos-version)
            pos-right (+ pos-version (.length version))]
-      (if (.contains link "\"")
-        link
+      ; The loop stops when double quotes are found at the beginning and at the end of the link.
+      (if (and (= (.indexOf link "\"") 0)
+               (= (.lastIndexOf link "\"") (dec (.length link))))
+        (.replace link (str (char 34)) "")
         (let [char-left  (.charAt content pos-left)
               char-right (.charAt content pos-right)]
-          (recur (str (if (= char-left "\"") "" char-left) link (if (= char-right "\"") "" char-right))
-                 (if (= char-left "\"")  pos-left  (dec pos-left))
-                 (if (= char-right "\"") pos-right (inc pos-right))))))))
+          (recur (str char-left link char-right)
+                 (if (= (int char-left) 34)  pos-left  (dec pos-left))
+                 (if (= (int char-right) 34) pos-right (inc pos-right))))))))
 
 (defn unzip-file [file]
   (let [zip-file (java.util.zip.ZipFile. file)
@@ -81,5 +83,5 @@
   (grant-permission
    (unzip-file
     (utils/download-file
-     (str "http://apache.belnet.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
+     (discover-download-uri :dist dist :version version)
      (str location "/apache-tomee-" version "-" dist ".zip")))))
