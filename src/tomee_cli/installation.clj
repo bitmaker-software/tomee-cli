@@ -21,6 +21,27 @@
             [tomee-cli.utils                          :as utils])
   (:gen-class))
 
+(def default-dist     "webprofile")
+(def default-version  "1.7.1")
+(def default-location ".")
+
+(defn discover-download-uri [& {:keys [dist version]
+                                :or {dist default-dist version default-version}}]
+  (let [content     (utils/fetch-uri (str "http://www.apache.org/dyn/closer.cgi/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip"))
+        pos-version (.indexOf content version)]
+    (loop [link      version
+           pos-left  (dec pos-version)
+           pos-right (+ pos-version (.length version))]
+      ; The loop stops when double quotes are found at the beginning and at the end of the link.
+      (if (and (= (.indexOf link "\"") 0)
+               (= (.lastIndexOf link "\"") (dec (.length link))))
+        (.replace link (str (char 34)) "")
+        (let [char-left  (.charAt content pos-left)
+              char-right (.charAt content pos-right)]
+          (recur (str char-left link char-right)
+                 (if (= (int char-left) 34)  pos-left  (dec pos-left))
+                 (if (= (int char-right) 34) pos-right (inc pos-right))))))))
+
 (defn unzip-file [file]
   (let [zip-file (java.util.zip.ZipFile. file)
         enum (enumeration-seq (.entries zip-file))]
@@ -44,7 +65,7 @@
                     (when (>= length 0)
                       (.write out bytes 0 length)
                       (recur (byte-array 1024))))))))
-          (recur (rest entries) 
+          (recur (rest entries)
                  (if (nil? location) (.getPath file) location)))))))
 
 (defn grant-permission [location-install]
@@ -58,9 +79,9 @@
                    files)))))
 
 (defn install-tomee [& {:keys [dist version location]
-                        :or {dist "webprofile" version "1.7.1" location "."}}]
+                        :or {dist default-dist version default-version location default-location}}]
   (grant-permission
    (unzip-file
     (utils/download-file
-     (str "http://apache.belnet.be/tomee/tomee-" version "/apache-tomee-" version "-" dist ".zip")
+     (discover-download-uri :dist dist :version version)
      (str location "/apache-tomee-" version "-" dist ".zip")))))
